@@ -17,7 +17,7 @@
 ### 2. GitHub 홈페이지 제작 – Hugo
 - 정적 사이트 생성기 Hugo 기반 포트폴리오 제작
 - 테마 설정, 페이지 라우팅 구성
-- 🔗 [GitHub 보기](https://github.com/m97j/github-homepage-hugo)
+- 🔗 [GitHub 보기](https://github.com/m97j/m97j.github.io)
 
 ### 3. Netflix Copy – 프론트엔드 개발
 - React 기반 UI 설계
