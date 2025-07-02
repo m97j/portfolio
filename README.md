@@ -4,13 +4,7 @@
 
 ## 🎯 게임 개발
 
-### 1. Pacman AI Agent 구현 (Berkeley CS188 기반)
-- 알고리즘: DFS, BFS, UCS, A*, Q-learning
-- 기존 Pacman 프레임워크에 맞춘 모듈화 구현
-- 🔗 [GitHub 보기](https://github.com/m97j/pacman-ai)
-- 📹 [시연 영상](https://youtu.be/링크)
-
-### 2. 웹 기반 게임 개발
+### 1. 웹 기반 게임 개발
 - front = unity
 - backend = node.js
 ---
@@ -42,6 +36,15 @@
 ### 5. 웹 기반 게임 개발
 - front = unity
 - backend = node.js
+---
+
+## 🧠 AI 관련 개발
+
+### 1. Pacman AI Agent 구현 (Berkeley CS188 기반)
+- 알고리즘: DFS, BFS, UCS, A*, Q-learning
+- 기존 Pacman 프레임워크에 맞춘 모듈화 구현
+- 🔗 [GitHub 보기](https://github.com/m97j/pacman-ai)
+- 📹 [시연 영상](https://youtu.be/링크)
 ---
 
 ## ✨ 예정
