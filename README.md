@@ -1,10 +1,13 @@
 
 # 🎮 Portfolio – Game & AI & Web Projects
 
+
 > 다양한 분야의 프로젝트 경험을 통해 프로그래밍 역량과 창의적 문제 해결력을 키워왔습니다.  
 > 특히 **게임 개발**과 **AI 기술 융합**을 중심으로 지속적으로 성장하고 있습니다.
 
+
 ---
+
 
 ## 📂 Project List
 
@@ -20,12 +23,12 @@
 | **Pacman AI Agents** | 기존 Pacman 게임에 AI 알고리즘 적용 | Python | [🔗](https://github.com/m97j/pacman-ai) |
 
 ### 🌐 Web Development
-| 프로젝트명 | 설명 | 기술 스택 | 링크 |
+| 프로젝트명 | 설명 | 기술 스택 | 세부사항 |
 |-----------|------|-----------|------|
-| Personal Portfolio | 개인 웹사이트 (Hugo) | HTML, CSS | 🔗 [GitHub 보기](https://github.com/m97j/m97j.github.io) |
-| Netflix Copy | Netflix 클론 | React.js | 🔗 [GitHub 보기](https://github.com/m97j/wsd_sj2-neflx_cop) |
-| Backend API | 백엔드 API 서버 | Node.js | 🔗 [GitHub 보기](https://github.com/m97j/wsd_sj3_mjk) |
-| Kakao Login | 카카오 API 로그인 구현 | JavaScript, Kakao API | 🔗 [GitHub 보기](https://github.com/m97j/wsd_sj4) |
+| Personal Portfolio | 개인 웹사이트 (Hugo) | HTML, CSS | [🔗](https://github.com/m97j/m97j.github.io) |
+| Netflix Copy | Netflix 클론 | React.js | [🔗](https://github.com/m97j/wsd_sj2-neflx_cop) |
+| Backend API | 백엔드 API 서버 | Node.js | [🔗](https://github.com/m97j/wsd_sj3_mjk) |
+| Kakao Login | 카카오 API 로그인 구현 | JavaScript, Kakao API | [🔗](https://github.com/m97j/wsd_sj4) |
 
 ---
 
@@ -36,5 +39,4 @@
 
 ---
 
-👉 **[프로젝트 상세 보기](https://github.com/m97j?tab=repositories)**
 
