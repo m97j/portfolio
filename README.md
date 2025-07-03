@@ -14,7 +14,7 @@
 ### 🕹️ Game Development
 | 프로젝트명 | 설명 | 기술 스택 | 링크 |
 |-----------|------|-----------|------|
-| **Web Mini Game**  | HTML5 기반의 캐주얼 게임 개발 | HTML, CSS, JS | 🔗 [GitHub 보기](https://github.com/m97j/WG_casual_card) |
+| **Web Mini Game**  | HTML5 기반의 캐주얼 게임 개발 | HTML, CSS, JS | [🔗](https://github.com/m97j/WG_casual_card) |
 | **Unity + Node.js Multiplayer Game** *(예정)* | 간단한 멀티플레이어 게임 클라이언트-서버 구현 | Unity, Node.js, Socket.io | 개발 예정 |
 
 ### 🧠 AI Development
@@ -23,7 +23,7 @@
 | **Pacman AI Agents** | 기존 Pacman 게임에 AI 알고리즘 적용 | Python | [🔗](https://github.com/m97j/pacman-ai) |
 
 ### 🌐 Web Development
-| 프로젝트명 | 설명 | 기술 스택 | 세부사항 |
+| 프로젝트명 | 설명 | 기술 스택 | 링크 |
 |-----------|------|-----------|------|
 | Personal Portfolio | 개인 웹사이트 (Hugo) | HTML, CSS | [🔗](https://github.com/m97j/m97j.github.io) |
 | Netflix Copy | Netflix 클론 | React.js | [🔗](https://github.com/m97j/wsd_sj2-neflx_cop) |
