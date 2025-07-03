@@ -11,7 +11,7 @@
 ### 🕹️ Game Development
 | 프로젝트명 | 설명 | 기술 스택 | 링크 |
 |-----------|------|-----------|------|
-| **Web Mini Game**  | HTML5 기반의 캐주얼 게임 개발 | HTML, CSS, JS | 🔗 [GitHub 보기](https://github.com/m97j/WG_) |
+| **Web Mini Game**  | HTML5 기반의 캐주얼 게임 개발 | HTML, CSS, JS | 🔗 [GitHub 보기](https://github.com/m97j/WG_casual_card) |
 | **Unity + Node.js Multiplayer Game** *(예정)* | 간단한 멀티플레이어 게임 클라이언트-서버 구현 | Unity, Node.js, Socket.io | 개발 예정 |
 
 ### 🧠 AI Development
