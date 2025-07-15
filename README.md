@@ -15,7 +15,7 @@
 | 프로젝트명 | 설명 | 기술 스택 | 링크 |
 |-----------|------|-----------|------|
 | **Web Mini Game**  | HTML5 기반의 캐주얼 게임 개발 | HTML, CSS, JS | [🔗](https://github.com/m97j/WG_casual_game) |
-| **FPS Game** | 간단한 게임 클라이언트-서버 구현 | Unity, Node.js, Socket.io | [🔗](https://github.com/m97j/FpsGame)  |
+| **FPS Game** | 간단한 게임 클라이언트 및 서버 구현 | Unity, Node.js, Socket.io | [🔗](https://github.com/m97j/FpsGame)  |
 
 ### 🧠 AI Development
 | 프로젝트명 | 설명 | 기술 스택 | 링크 |
