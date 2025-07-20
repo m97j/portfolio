@@ -37,9 +37,9 @@
 | 프로젝트명 | 설명 | 기술 스택 | 링크 |
 |-----------|------|-----------|------|
 | Personal Portfolio | 정적 웹사이트 제작 / Hugo 기반 구성 | HTML, CSS, Hugo | [🔗](https://github.com/m97j/m97j.github.io) |
-| Netflix Copy | API 연결 기반의 React 클론 구현 | React.js | [🔗](https://github.com/m97j/wsd_sj2-neflx_cop) |
-| Backend API | RESTful 백엔드 서버 구현 및 MongoDB 연동 | Node.js, Express | [🔗](https://github.com/m97j/wsd_sj3_mjk) |
-| Kakao Login | 카카오 API 기반 OAuth 로그인 기능 구현 | JavaScript, Kakao API | [🔗](https://github.com/m97j/wsd_sj4) |
+| Netflix Copy | API 연결 기반의 React 클론 구현 | React.js | [🔗](https://github.com/m97j/WSD2_react_netflix_clone) |
+| Backend API | RESTful 백엔드 서버 구현 및 MongoDB 연동 | Node.js, Express | [🔗](https://github.com/m97j/WSD3_node_api_server) |
+| Kakao Login | 카카오 API 기반 OAuth 로그인 기능 구현 | JavaScript, Kakao API | [🔗](https://github.com/m97j/WSD4_kakao_login_auth) |
 
 ---
 
