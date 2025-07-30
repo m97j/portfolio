@@ -1,62 +1,76 @@
+# 🎮 Portfolio – 민재의 게임 및 AI 개발 프로젝트
+
+> 게임 클라이언트 설계, AI 알고리즘 응용, 백엔드 연동 등  
+> 실무 중심 기술력을 바탕으로 한 다각적 개발 경험을 정리한 포트폴리오입니다.  
+> 특히 Unity / Unreal / Node.js 기반 프로젝트를 통해  
+> 게임스프링과 유사한 환경에서 즉시 적응 가능한 구조적 역량을 갖추고 있습니다.
 
 ---
 
-## 🎮 Portfolio – Game, AI & Web Projects
+## 🧠 핵심 역량 요약
 
-> 다양한 분야의 개발 경험을 통해 문제 해결력, 협업 감각, 기술 응용 능력을 키워왔습니다.  
-> 특히 **게임 개발 클라이언트 구현과 AI 알고리즘 적용을 중심으로** 심도 있게 확장하고 있으며,  
-> 실제 게임 개발사의 실무 흐름에 맞춰 구조화된 프로젝트 설계와 기술 스택 운용을 지속하고 있습니다.
-
----
-
-## 📌 프로젝트 주요 테마
-
-- 🎮 **게임 클라이언트 개발**: Unity 기반 FPS, Web 미니게임 등 인터랙션 중심의 구현
-- 🧠 **게임 AI 알고리즘 적용**: 탐색(Search), 판단(Minimax), 학습(RL) 알고리즘을 실전 게임에 적용
-- 🌐 **웹 서비스 개발 경험**: 프론트엔드부터 백엔드까지 다양한 기술 스택을 활용한 실습
+- 🎮 **게임 클라이언트 개발** – Unity, Unreal 기반 게임 설계 및 기능 구현
+- 🧠 **게임 AI 구현** – 탐색/판단/학습 알고리즘을 직접 구조화하여 게임에 적용
+- 🌐 **서버-클라이언트 통신** – Node.js 백엔드 + MongoDB 연동 및 API 설계 경험
+- 👥 **Git 기반 협업 및 관리** – Git Flow, 브랜치 전략, PR/리뷰 경험 보유
 
 ---
 
-## 📂 Project List
+## 🕹️ 주요 게임 프로젝트
 
-### 🕹️ Game Development
-
-| 프로젝트명 | 설명 | 기술 스택 | 링크 |
-|-----------|------|-----------|------|
-| **FPS Game** | Unity 기반 FPS 클라이언트 및 서버 설계, AI 구현 / MMORPG 요소 기획 포함 | Unity, C#, Node.js, MongoDB | [🔗](https://github.com/m97j/FpsGame) |
-| **Web Mini Game**  | HTML5 기반 캐주얼 게임 (키보드 입력, 애니메이션 중심 구성) | HTML, CSS, JS | [🔗](https://github.com/m97j/WG_casual_game) |
-
-### 🧠 AI Development
-
-| 프로젝트명 | 설명 | 기술 스택 | 링크 |
-|-----------|------|-----------|------|
-| **Pacman AI Agents** | 구조화된 코드 기반으로 AI 탐색 · 판단 · 학습 로직 직접 구현 및 실험 | Python (DFS, A*, Minimax, Q-Learning) | [🔗](https://github.com/m97j/pacman-ai) |
-
-### 🌐 Web Development
-
-| 프로젝트명 | 설명 | 기술 스택 | 링크 |
-|-----------|------|-----------|------|
-| Personal Portfolio | 정적 웹사이트 제작 / Hugo 기반 구성 | HTML, CSS, Hugo | [🔗](https://github.com/m97j/m97j.github.io) |
-| Netflix Copy | API 연결 기반의 React 클론 구현 | React.js | [🔗](https://github.com/m97j/WSD2_react_netflix_clone) |
-| Backend API | RESTful 백엔드 서버 구현 및 MongoDB 연동 | Node.js, Express | [🔗](https://github.com/m97j/WSD3_node_api_server) |
-| Kakao Login | 카카오 API 기반 OAuth 로그인 기능 구현 | JavaScript, Kakao API | [🔗](https://github.com/m97j/WSD4_kakao_login_auth) |
+### 🎯 FPS 게임 개발 (Unity + node.js)
+- 유니티 엔진 기반 1인칭 슈팅 게임
+- Unity 기반 클라이언트 구현 + Node.js 서버 연동
+- server배포 방식: server는 render를 이용하여 배포 + MongoAtlas를 이용한 CloudDB 사용
+- 사용 기술: unity, c#, ??
+- 구현 기능: 적 AI 반응, 무기 교체, 탄환 피격 판정, 몬스터 리스폰, UI 기능 구현 등  
+- 📷 [스크린샷](#) / 🎥 [시연 영상](#) / 📂 [코드 보기](https://github.com/m97j/FpsGame)  
 
 ---
 
-## 🔮 향후 계획
-
-- Unreal Engine 기반 게임 프로젝트 착수 예정  
-- Unity + Node.js 기반 네트워크 게임 완성 후 배포 준비 중  
-- GitHub Actions / CI 자동화 경험 추가 예정
-
----
-
-## 🧠 주요 역량 요약
-
-- **게임 클라이언트 설계 능력**: 씬 전환, UI, 오브젝트 제어 등 Unity 중심 기술 보유
-- **AI 알고리즘 이해 및 구현 경험**: BFS, DFS, A*, Minimax, Q-Learning 직접 적용
-- **서버-클라이언트 구조 이해**: 백엔드와의 API 연동 및 데이터 구조 설계 경험
-- **협업 및 버전 관리 경험**: GitFlow, 브랜치 전략, 커밋 규칙 기반으로 협업 가능
+### 🎯 Pacman AI Agent
+- Python 기반 AI 알고리즘 실험용 게임
+- 구현 알고리즘: **DFS, BFS, A*, Minimax, Q-Learning**
+- 시각화 기반 디버깅 및 성능 비교  
+- 📂 [GitHub Repo](https://github.com/m97j/pacman-ai)
 
 ---
 
+### 🎯 HTML5 기반 미니게임
+- JS + Canvas 기반 키보드 조작 캐주얼 게임
+- 타격 판정, 이동 애니메이션 구현  
+- 📂 [GitHub Repo](https://github.com/m97j/WG_casual_game)
+
+---
+
+## 🌐 웹/서버 프로젝트
+
+### 📡 Node.js REST API 서버
+- 게시판용 REST API + MongoDB 데이터 처리  
+- 토큰 인증, 라우팅 설계, 유효성 검증 등  
+- 📂 [GitHub Repo](https://github.com/m97j/WSD3_node_api_server)
+
+### 🔑 카카오 로그인 연동
+- 카카오 OAuth2 API 활용 로그인 구현  
+- 프론트-백엔드 연결 전 과정 실습  
+- 📂 [GitHub Repo](https://github.com/m97j/WSD4_kakao_login_auth)
+
+### 📺 Netflix Clone (React)
+- TMDB API 기반 콘텐츠 조회 UI  
+- React Hook 기반 상태 관리 구조 적용  
+- 📂 [GitHub Repo](https://github.com/m97j/WSD2_react_netflix_clone)
+
+---
+
+## 🚀 향후 개발 계획
+
+- **UE5 기반 RPG 세계관 게임** 개발 예정 (AI + 환경 상호작용 포함)
+- **Unity + Node.js 기반 네트워크 게임** 배포 예정
+- GitHub Actions 기반 자동 테스트 및 배포 실습 병행 중
+
+---
+
+📫 **문의 및 지원용 연락처**
+
+- Email: mmnkjiae@gmail.com 
+- GitHub: [https://github.com/m97j](https://github.com/m97j)
