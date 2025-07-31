@@ -24,7 +24,7 @@
 - server배포 방식: server는 render를 이용하여 배포 + MongoAtlas를 이용한 CloudDB 사용
 - 사용 기술: unity, c#, ??
 - 구현 기능: 적 AI 반응, 무기 교체, 탄환 피격 판정, 몬스터 리스폰, UI 기능 구현 등  
-- 📷 [스크린샷](#) / 🎥 [시연 영상](#) / 📂 [GitHub Repo](https://github.com/m97j/FpsGame)  
+- 📷 ~~[스크린샷](#)~~ / 🎥 [시연 영상](https://youtu.be/98fkWuGhLA0) / 📂 [GitHub Repo](https://github.com/m97j/FpsGame)  
 
 ---
 
