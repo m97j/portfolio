@@ -1,76 +1,101 @@
-# 🎮 Portfolio – 민재의 게임 및 AI 개발 프로젝트
+# 🧠 김민재의 Tech Portfolio
 
-> 게임 클라이언트 설계, AI 알고리즘 응용, 백엔드 연동 등  
-> 실무 중심 기술력을 바탕으로 한 다각적 개발 경험을 정리한 포트폴리오입니다.  
-> 특히 Unity / Unreal / Node.js 기반 프로젝트를 통해  
-> 게임개발과 유사한 환경에서 즉시 적응 가능한 구조적 역량을 갖추고 있습니다.
+안녕하세요. 저는 **게임 클라이언트 및 AI 개발자**로서, 게임 플레이 경험을 풍부하게 만들기 위한 기술을 연구하고 구현하는 개발자입니다.  
+Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입감 있는 게임 세계와 지능적인 AI 시스템 구축**을 목표로 하고 있습니다.
 
 ---
 
-## 🧠 핵심 역량 요약
+## 🧰 Tech Stack
 
-- 🎮 **게임 클라이언트 개발** – Unity, Unreal 기반 게임 설계 및 기능 구현
-- 🧠 **게임 AI 구현** – 탐색/판단/학습 알고리즘을 직접 구조화하여 게임에 적용
-- 🌐 **서버-클라이언트 통신** – Node.js 백엔드 + MongoDB 연동 및 API 설계 경험
-- 👥 **Git 기반 협업 및 관리** – Git Flow, 브랜치 전략, PR/리뷰 경험 보유
-
----
-
-## 🕹️ 주요 게임 프로젝트
-
-### 🎯 FPS 게임 개발 (Unity + node.js)
-- 유니티 엔진 기반 1인칭 슈팅 게임
-- Unity 기반 클라이언트 구현 + Node.js 서버 연동
-- server배포 방식: server는 render를 이용하여 배포 + MongoAtlas를 이용한 CloudDB 사용
-- 사용 기술: unity, c#, ??
-- 구현 기능: 적 AI 반응, 무기 교체, 탄환 피격 판정, 몬스터 리스폰, UI 기능 구현 등  
-- 📷 ~~[스크린샷](#)~~ / 🎥 [시연 영상](https://youtu.be/98fkWuGhLA0) / 📂 [GitHub Repo](https://github.com/m97j/FpsGame)  
+- **Languages**: C++, C#, Java, Python, JavaScript
+- **Game Engines**: Unity, Unreal Engine[공부 중]
+- **AI**: TensorFlow, PyTorch, scikit-learn, huggingface
+- **Web**: React, Node.js, Flask
+- **Tools**: Git, AWS, MongoDB, MySQL
 
 ---
 
-### 🎯 Pacman AI Agent
-- Python 기반 AI 알고리즘 실험용 게임
-- 구현 알고리즘: **DFS, BFS, A*, Minimax, Q-Learning**
-- 시각화 기반 디버깅 및 성능 비교  
-- 📂 [GitHub Repo](https://github.com/m97j/pacman-ai)
+## 🔷 Game Development Projects
+
+### 🎮 FPS Game [🔗 Repo](https://github.com/m97j/fpsgame)
+
+- Unity 기반 1인칭 슈팅 게임 (클라이언트 & 서버 로직 포함)
+- **기능 구성**:
+  - 무기 시스템, UI 시스템, 캐릭터 컨트롤
+  - 적 FSM 기반 행동 로직, Network 연동(로그인)
+  - 추후 인벤토리, 상점, 서버 자원관리 기능 추가 예정
+- 기술 스택: Unity(C#), Firebase, Photon
+
+### 🧠 Pacman AI [🔗 Repo](https://github.com/m97j/pacman-ai)
+
+- UC Berkeley CS188 기반 게임 AI 과제 구현
+- BFS, DFS, A*, Expectimax 등 탐색/전략 알고리즘 구현
+- 게임 AI 로직 구조에 대한 깊은 이해를 바탕으로 설계
 
 ---
 
-### 🎯 HTML5 기반 미니게임
-- JS + Canvas 기반 키보드 조작 캐주얼 게임
-- 타격 판정, 이동 애니메이션 구현  
-- 📂 [GitHub Repo](https://github.com/m97j/WG_casual_game)
+## 🔷 AI Projects
+
+### 🤖 LLM-NPC (진행 예정) [📂 Repo Soon]
+
+- 게임 내 NPC의 대화를 **LLM API 기반으로 자동 생성**
+- 게임 세계 설정 기반의 **세계관 지식 내장형 대화 시스템**
+- 기술 스택: GPT API, Flask (server), Unity 연동 예정
+- 목표:
+  - LLM fine-tuning or memory system 기반 커스터마이징
+  - 클라이언트와 REST API 연동 통한 자연스러운 플레이어-NPC 대화
+
+### 📊 Kaggle NLP Competition [🔗 Notebook](https://www.kaggle.com/code/nrmx202/2025-1-nlp)
+
+- 교내 대회 참가, 다양한 DL 기반 NLP 모델 설계
+- CNN, BiLSTM, BERT 등 다양한 모델을 설계 및 실험
+- 문장 분류 문제에서 최종 상위권 기록
 
 ---
 
-## 🌐 웹/서버 프로젝트
+## 🎓 Academic Projects
 
-### 📡 Node.js REST API 서버
-- 게시판용 REST API + MongoDB 데이터 처리  
-- 토큰 인증, 라우팅 설계, 유효성 검증 등  
-- 📂 [GitHub Repo](https://github.com/m97j/WSD3_node_api_server)
+### 📘 Machine Learning [🔗 Repo](https://github.com/m97j/ml-assignments)
 
-### 🔑 카카오 로그인 연동
-- 카카오 OAuth2 API 활용 로그인 구현  
-- 프론트-백엔드 연결 전 과정 실습  
-- 📂 [GitHub Repo](https://github.com/m97j/WSD4_kakao_login_auth)
+- Decision Tree, Naive Bayes 등 고전 ML 알고리즘 직접 구현
 
-### 📺 Netflix Clone (React)
-- TMDB API 기반 콘텐츠 조회 UI  
-- React Hook 기반 상태 관리 구조 적용  
-- 📂 [GitHub Repo](https://github.com/m97j/WSD2_react_netflix_clone)
+### 📘 Data Mining [🔗 Repo](https://github.com/m97j/dm-assignments)
 
----
+- PageRank, 연관 규칙 마이닝, 추천 시스템 구현
+- Kaggle 기반 MovieLens 추천 시스템 모델링 [🔗](https://www.kaggle.com/code/nrmx202/202212097)
 
-## 🚀 향후 개발 계획
+### 📘 Natural Language Processing [🔗 Repo](https://github.com/m97j/nlp-assignments)
 
-- **UE5 기반 RPG 세계관 게임** 개발 예정 (AI + 환경 상호작용 포함)
-- **Unity + Node.js 기반 네트워크 게임** 배포 예정
-- GitHub Actions 기반 자동 테스트 및 배포 실습 병행 중
+- BPE 기반 subword tokenizer 구현
+- 한글 오토마타 구현
+- 교내 경진대회 참가 및 DL 모델 기반 분류 문제 해결
 
 ---
 
-📫 **문의 및 지원용 연락처**
+## 🧑‍💻 Web & Cloud Projects
 
-- Email: mmnkjiae@gmail.com 
-- GitHub: [https://github.com/m97j](https://github.com/m97j)
+### ☁️ AWS 기반 이미지 변환 서비스 [🔗 Repo](https://github.com/m97j/cloudapp)
+
+- Cloud Computing 과목에서 진행한 이미지 변환 웹 앱
+- Flask 서버와 AWS EC2 인스턴스 연동
+
+### 🖥️ WSD – 웹 서비스 개발 [🔗 Repo](https://github.com/m97j/wsd_sj4)
+
+- Kakao 로그인 기능 포함 웹 서비스 개발
+- React + Node.js + MongoDB 기반
+
+---
+
+## 📎 기타 이력 사항
+
+- **현장실습**: 낙상 감지 시스템 개발 참여 (Google Teachable Machine 기반)
+- **캡스톤디자인**: AI 기반 고령자 낙상감지 시스템 (경진대회 장려상 수상)
+- 위 항목은 이력서에서 자세히 확인 가능합니다.
+
+---
+
+## 📩 Contact
+
+- Email: mmnkjiae@gmail.com  
+- GitHub: [github.com/m97j](https://github.com/m97j)  
+
