@@ -45,7 +45,7 @@ Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입�
   - LLM fine-tuning or memory system 기반 커스터마이징
   - 클라이언트와 REST API 연동 통한 자연스러운 플레이어-NPC 대화
 
-### 📊 Kaggle NLP Competition [🔗 Notebook](https://www.kaggle.com/code/nrmx202/2025-1-nlp)
+### 📊 Kaggle NLP Competition [🔗 Notebook](https://www.kaggle.com/code/nrmx202/mjk-nlp)
 
 - 교내 대회 참가, 다양한 DL 기반 NLP 모델 설계
 - CNN, BiLSTM, BERT 등 다양한 모델을 설계 및 실험
