@@ -36,7 +36,7 @@ Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입�
 
 ## 🔷 AI Projects
 
-### 🤖 LLM-NPC (진행 예정) [📂 Repo Soon]
+### 🤖 LLM-NPC (진행 예정) [[🔗 Repo](https://github.com/m97j/persona-chat-engine)]
 
 - 게임 내 NPC의 대화를 **LLM API 기반으로 자동 생성**
 - 게임 세계 설정 기반의 **세계관 지식 내장형 대화 시스템**
