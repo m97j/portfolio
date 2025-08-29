@@ -26,17 +26,11 @@ Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입�
   - 추후 인벤토리, 상점, 서버 자원관리 기능 추가 예정
 - 기술 스택: Unity(C#), Firebase, Photon
 
-### 🧠 Pacman AI [🔗 Repo](https://github.com/m97j/pacman-ai)
-
-- UC Berkeley CS188 기반 게임 AI 과제 구현
-- BFS, DFS, A*, Expectimax 등 탐색/전략 알고리즘 구현
-- 게임 AI 로직 구조에 대한 깊은 이해를 바탕으로 설계
-
 ---
 
 ## 🔷 AI Projects
 
-### 🤖 LLM-NPC (진행 예정) [[🔗 Repo](https://github.com/m97j/persona-chat-engine)]
+### 🤖 LLM-NPC (진행 중) [[🔗 Repo](https://github.com/m97j/persona-chat-engine)]
 
 - 게임 내 NPC의 대화를 **LLM API 기반으로 자동 생성**
 - 게임 세계 설정 기반의 **세계관 지식 내장형 대화 시스템**
@@ -50,6 +44,12 @@ Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입�
 - 교내 대회 참가, 다양한 DL 기반 NLP 모델 설계
 - CNN, BiLSTM, BERT 등 다양한 모델을 설계 및 실험
 - 문장 분류 문제에서 최종 상위권 기록
+
+### 🧠 Pacman AI [🔗 Repo](https://github.com/m97j/pacman-ai)
+
+- UC Berkeley CS188 기반 게임 AI 과제 구현
+- BFS, DFS, A*, Expectimax 등 탐색/전략 알고리즘 구현
+- 게임 AI 로직 구조에 대한 깊은 이해를 바탕으로 설계
 
 ---
 
@@ -79,7 +79,7 @@ Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입�
 - Cloud Computing 과목에서 진행한 이미지 변환 웹 앱
 - Flask 서버와 AWS EC2 인스턴스 연동
 
-### 🖥️ WSD – 웹 서비스 개발 [🔗 Repo](https://github.com/m97j/wsd_sj4)
+### 🖥️ WSD – 웹 서비스 개발 [🔗 Repo](https://github.com/m97j/wsd)
 
 - Kakao 로그인 기능 포함 웹 서비스 개발
 - React + Node.js + MongoDB 기반
