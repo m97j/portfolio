@@ -1,4 +1,4 @@
-# 🧠 김민재의 Tech Portfolio
+# 🧠 Tech Portfolio
 
 안녕하세요. 저는 **게임 클라이언트 및 AI 개발자**로서, 게임 플레이 경험을 풍부하게 만들기 위한 기술을 연구하고 구현하는 개발자입니다.  
 Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입감 있는 게임 세계와 지능적인 AI 시스템 구축**을 목표로 하고 있습니다.
@@ -17,7 +17,7 @@ Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입�
 
 ## 🔷 Game Development Projects
 
-### 🎮 FPS Game [🔗 Repo](https://github.com/m97j/fpsgame)
+### 🎮 FPS Game (진행 중) [🔗 Repo](https://github.com/m97j/fpsgame)
 
 - Unity 기반 1인칭 슈팅 게임 (클라이언트 & 서버 로직 포함)
 - **기능 구성**:
@@ -79,7 +79,7 @@ Unity, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입�
 - Cloud Computing 과목에서 진행한 이미지 변환 웹 앱
 - Flask 서버와 AWS EC2 인스턴스 연동
 
-### 🖥️ WSD – 웹 서비스 개발 [🔗 Repo](https://github.com/m97j/wsd)
+### 🖥️ WSD – 웹 서비스 개발 [🔗 Repo](https://github.com/m97j/wsd4)
 
 - Kakao 로그인 기능 포함 웹 서비스 개발
 - React + Node.js + MongoDB 기반
