@@ -1,94 +1,53 @@
 # 🧠 Tech Portfolio
-
-소개: **게임 클라이언트 및 AI 개발자**로서, 게임 플레이 경험을 풍부하게 만들기 위한 기술을 연구하고 구현하는 개발자입니다.  
-목표: Unity, UE, Python, DL/ML/NLP 등 다양한 기술 스택을 기반으로, **몰입감 있는 게임 세계와 지능적인 AI 시스템 구축**
+**Game Development × AI Research**  
+몰입감 있는 게임 환경과 지능적인 AI 시스템을 만들기 위한 프로젝트 모음집입니다.  
+(세부 구현 및 설명은 각 프로젝트 repo에 포함되어 있습니다)
 
 ---
 
 ## 🧰 Tech Stack
-
-- **Languages**: C++, C#, Java, Python, JavaScript
-- **Game Engines**: Unity, Unreal Engine[공부 중]
-- **AI**: TensorFlow, PyTorch, scikit-learn, huggingface
-- **Web**: React, Node.js, Flask
-- **Tools**: Git, AWS, MongoDB, MySQL
-
----
-
-## 🔷 Game Development Projects
-
-### 🎮 FPS Game (진행 중) [🔗 Repo](https://github.com/m97j/fpsgame)
-
-- Unity 기반 1인칭 슈팅 게임 (클라이언트 & 서버 로직 포함)
-- **기능 구성**:
-  - 무기 시스템, UI 시스템, 캐릭터 컨트롤
-  - 적 FSM 기반 행동 로직, Network 연동(로그인)
-  - 추후 인벤토리, 상점, 서버 자원관리 기능 추가 예정
-- 기술 스택: Unity(C#), Firebase, Photon
+- **Languages**: C++, C#, Java, Python, JavaScript  
+- **Game Engines**: Unity, Unreal Engine(학습 중)  
+- **AI / ML**: TensorFlow, PyTorch, HuggingFace, scikit-learn  
+- **Web**: React, Node.js, Flask  
+- **Infra / Cloud**: Git, AWS, MongoDB, MySQL  
 
 ---
 
-## 🔷 AI Projects
-
-### 🤖 LLM-NPC (진행 중) [[🔗 Repo](https://github.com/m97j/persona-chat-engine)]
-
-- 게임 내 NPC의 대화를 **LLM API 기반으로 자동 생성**
-- 게임 세계 설정 기반의 **세계관 지식 내장형 대화 시스템**
-- 기술 스택: GPT API, Flask (server), Unity 연동 예정
-- 목표:
-  - LLM fine-tuning or memory system 기반 커스터마이징
-  - 클라이언트와 REST API 연동 통한 자연스러운 플레이어-NPC 대화
-
-### 📊 Kaggle NLP Competition [🔗 Notebook](https://www.kaggle.com/code/nrmx202/mjk-nlp)
-
-- 교내 대회 참가, 다양한 DL 기반 NLP 모델 설계
-- CNN, BiLSTM, BERT 등 다양한 모델을 설계 및 실험
-- 문장 분류 문제에서 최종 상위권 기록
-
-### 🧠 Pacman AI [🔗 Repo](https://github.com/m97j/pacman-ai)
-
-- UC Berkeley CS188 기반 게임 AI 과제 구현
-- BFS, DFS, A*, Expectimax 등 탐색/전략 알고리즘 구현
-- 게임 AI 로직 구조에 대한 깊은 이해를 바탕으로 설계
+## 🔖 Legend (이모지 태그)
+| Emoji | 의미                              |
+|-------|-----------------------------------|
+| 🔷    | Game Client / Server              |
+| 🔴    | AI Development (NLP, CV, DL/ML)  |
+| 🟣    | AGI Research / 융합 AI            |
+| 🟠    | Web / API Development             |
+| ⚫    | Backend / Infra / DB              |
+| 🟢    | Cloud / DevOps (AWS, CI/CD, Docker) |
 
 ---
 
-## 🎓 Academic Projects
+## 🚀 Projects
 
-### 📘 Machine Learning [🔗 Repo](https://github.com/m97j/ml-assignments)
+### 🔷 Game Development
+- [🎮 FPS Game <🔷⚫🟢>](https://github.com/m97j/fpsgame)  
+  Unity 기반 FPS (클라이언트 & 서버 로직 + Firebase/Photon)
 
-- Decision Tree, Naive Bayes 등 고전 ML 알고리즘 직접 구현
+### 🔴 AI Projects
+- [🤖 LLM-NPC <🔷🔴🟣>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화  
+- [📊 Kaggle NLP Competition <🔴>](https://www.kaggle.com/code/nrmx202/mjk-nlp) — CNN, BiLSTM, BERT 실험  
+- [🧠 Pacman AI <🔴>](https://github.com/m97j/pacman-ai) — 탐색/전략 알고리즘 구현  
 
-### 📘 Data Mining [🔗 Repo](https://github.com/m97j/dm-assignments)
+### 🎓 Academic Projects
+- [📘 Machine Learning <🔴>](https://github.com/m97j/ml-assignments) — 고전 ML 알고리즘 구현  
+- [📘 Data Mining <🔴⚫>](https://github.com/m97j/dm-assignments) — PageRank, 추천 시스템, Kaggle 실습  
+- [📘 Natural Language Processing <🔴>](https://github.com/m97j/nlp-assignments) — tokenizer, 한글 오토마타, 대회 참가  
 
-- PageRank, 연관 규칙 마이닝, 추천 시스템 구현
-- Kaggle 기반 MovieLens 추천 시스템 모델링 [🔗](https://www.kaggle.com/code/nrmx202/202212097)
-
-### 📘 Natural Language Processing [🔗 Repo](https://github.com/m97j/nlp-assignments)
-
-- BPE 기반 subword tokenizer 구현
-- 한글 오토마타 구현
-- 교내 경진대회 참가 및 DL 모델 기반 분류 문제 해결
-
----
-
-## 🧑‍💻 Web & Cloud Projects
-
-### ☁️ AWS 기반 이미지 변환 서비스 [🔗 Repo](https://github.com/m97j/cloudapp)
-
-- Cloud Computing 과목에서 진행한 이미지 변환 웹 앱
-- Flask 서버와 AWS EC2 인스턴스 연동
-
-### 🖥️ WSD – 웹 서비스 개발 [🔗 Repo](https://github.com/m97j/WSD4_kakao_login_auth)
-
-- Kakao 로그인 기능 포함 웹 서비스 개발
-- React + Node.js + MongoDB 기반
-
+### 🟠 Web & Cloud
+- [☁️ Image Conversion Service <🟠⚫🟢>](https://github.com/m97j/cloudapp) — Flask + AWS EC2  
+- [🖥️ Kakao Login Web Service <🟠⚫>](https://github.com/m97j/WSD4_kakao_login_auth) — React + Node.js + MongoDB  
 
 ---
 
 ## 📩 Contact
-
-- Email: mmnkjiae@gmail.com  
+- Email: **mmnkjiae@gmail.com**  
 - GitHub: [github.com/m97j](https://github.com/m97j)  
-
