@@ -33,7 +33,7 @@
   Unity 기반 FPS (클라이언트 & 서버 로직 + Firebase/Photon)
 
 ### 🔴 AI Projects
-- [🤖 LLM-NPC <🔷🔴🟣>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화  
+- [🤖 Persona Chat Engine <🔷🔴🟣>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화  
 - [📊 Kaggle NLP Competition <🔴>](https://www.kaggle.com/code/nrmx202/mjk-nlp) — CNN, BiLSTM, BERT 실험  
 - [🧠 Pacman AI <🔴>](https://github.com/m97j/pacman-ai) — 탐색/전략 알고리즘 구현  
 
