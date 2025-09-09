@@ -17,11 +17,11 @@
 ## 🔖 Legend (이모지 태그)
 | Emoji | 의미                              |
 |-------|-----------------------------------|
-| 🔷    | Game Client / Server              |
-| 🔴    | AI Development (NLP, CV, DL/ML)  |
-| 🟣    | AGI Research / 융합 AI            |
+| 🔷    | Game Client             |
+| 🔴    | AI Development (NLP, CV, DL/ML, AGI Research / 융합 AI)  |
+| 🟣    | XR / Creative Tech (VR·AR·MR·UI/UX·VFX)            |
 | 🟠    | Web / API Development             |
-| ⚫    | Backend / Infra / DB              |
+| ⚫    | Backend / Server / Infra / DB              |
 | 🟢    | Cloud / DevOps (AWS, CI/CD, Docker) |
 
 ---
@@ -33,11 +33,10 @@
   Unity 기반 FPS (클라이언트 & 서버 로직 + Firebase/Photon)
 
 ### 🔴 AI Projects
-- [🤖 Persona Chat Engine <🔷🔴🟣>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화  
-- [📊 Kaggle NLP Competition <🔴>](https://www.kaggle.com/code/nrmx202/mjk-nlp) — CNN, BiLSTM, BERT 실험  
-- [🧠 Pacman AI <🔴>](https://github.com/m97j/pacman-ai) — 탐색/전략 알고리즘 구현  
+- [🤖 Persona Chat Engine <🔷🔴>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화  
 
-### 🎓 Academic Projects
+### 🎓 Academic Projects  
+- [📘 Artificial Intelligence <🔴>](https://github.com/m97j/pacman-ai) — 탐색/전략 알고리즘 구현  
 - [📘 Machine Learning <🔴>](https://github.com/m97j/ml-assignments) — 고전 ML 알고리즘 구현  
 - [📘 Data Mining <🔴⚫>](https://github.com/m97j/dm-assignments) — PageRank, 추천 시스템, Kaggle 실습  
 - [📘 Natural Language Processing <🔴>](https://github.com/m97j/nlp-assignments) — tokenizer, 한글 오토마타, 대회 참가  
