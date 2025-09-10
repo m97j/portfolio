@@ -42,8 +42,8 @@
 <td align="left">
 • 🗣 NLP&nbsp;&nbsp;&nbsp;&nbsp;• 📷 CV&nbsp;&nbsp;&nbsp;&nbsp;• 🖇 Multimodal AI<br>
 • 🎨 Generative AI (텍스트·이미지·3D·오브젝트 등 생성형 전반)<br>
-• 🧠 Unified Intelligence System Development (AGI-like system dev)<br>
-• 🤖 AGI Research (단일모델 AGI 연구)
+• 🤖 Unified Intelligence System Development (AGI-like system dev)<br>
+• 🧠 AGI Research (단일모델 AGI 연구)
 </td>
 </tr>
 
@@ -100,9 +100,9 @@
 - `VR AAA Game<🔷[🎮🕹🗺]>` → Game Client 대분류, 게임플레이 + 인터랙션 + 레벨 구조  
 - `NPC Combat AI<🔷[🎯]>` → Game Client 대분류, NPC AI  
 - `AGI-like Game Manager<🔴[🔀🎨]>` → AI 대분류, 융합 AI + Generative AI
-- `AGI 단일모델 연구<🔴[🤖]>` → AI 대분류, AGI Research 세부분류  
+- `AGI 단일모델 연구<🔴[🧠]>` → AI 대분류, AGI Research 세부분류  
 - `Cloud Image Service<🟢[☁️]>` → Cloud 대분류, 클라우드 세부분류  
-- `AAA급 실사 VR 게임 + AGI-like AI<🔷[🎮🕹🎯🗺]🟣[🥽🖌🎬]🔴[🧠🎨]>` → Game Client + Creative Tech + AI Development
+- `AAA급 실사 VR 게임 + AGI-like AI<🔷[🎮🕹🎯🗺]🟣[🥽🖌🎬]🔴[🤖🎨]>` → Game Client + Creative Tech + AI Development
 
 
 ---
