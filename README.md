@@ -90,7 +90,7 @@
 - **형식**: `프로젝트명<대분류[세부분류]>`
 - **대분류 Tag**: 기술 영역을 나타내는 도형·색상 이모지
 - **세부 Tag**: 해당 프로젝트의 핵심 기술/연구 분야를 나타내는 의미형 이모지
-- **멀티태그**: 세부분류를 2개 이상 붙일 수 있음 (예: `<🔴[🔀🎨]>` → 융합 AI + Generative AI)
+- **멀티태그**: 세부분류를 2개 이상 붙일 수 있음 (예: `<🔴[🖇🎨]>` → Multimodal AI + Generative AI)
 
 ---
 
@@ -102,19 +102,19 @@
 - `AGI-like Game Manager<🔴[🔀🎨]>` → AI 대분류, 융합 AI + Generative AI
 - `AGI 단일모델 연구<🔴[🤖]>` → AI 대분류, AGI Research 세부분류  
 - `Cloud Image Service<🟢[☁️]>` → Cloud 대분류, 클라우드 세부분류  
-- `AAA급 실사 VR 게임 + AGI-like AI<🔷[🎮🕹🎯🗺]🟣[🥽🖌🎬]🔴[🔀🎨]>` → Game Client + Creative Tech + AI Development
+- `AAA급 실사 VR 게임 + AGI-like AI<🔷[🎮🕹🎯🗺]🟣[🥽🖌🎬]🔴[🧠🎨]>` → Game Client + Creative Tech + AI Development
 
 
 ---
 ## 🚀 Projects
 
 ### 🔷 Game Development
-- [🎮 FPS Game <🔷⚫🟢>](https://github.com/m97j/fpsgame)  
+- [🎮 FPS Game <🔷[🎮🕹]⚫🟢>](https://github.com/m97j/fpsgame)  
   Unity 기반 FPS (클라이언트 & 서버 로직 + Firebase/Photon)
 
 ### 🔴 AI Projects
-- [🤖 Persona Chat Engine <🔴[🗣🎨]⚫🔷>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화
-- [🤖 HAR safety AI <🔴[🖇📷🧠]>](https://github.com/m97j/har-safety-ai) — capston project기반 확장 프로젝트
+- [🗣 Persona Chat Engine <🔴[🗣🎨]⚫🔷>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화
+- [🖇 HAR safety AI <🔴[🖇📷]>](https://github.com/m97j/har-safety-ai) — capston project기반 확장 프로젝트
 
 ### 🎓 Academic Projects  
 - [📘 Artificial Intelligence <🔴>](https://github.com/m97j/pacman-ai) — 탐색/전략 알고리즘 구현  
@@ -123,7 +123,7 @@
 - [📘 Natural Language Processing <🔴[🗣]>](https://github.com/m97j/nlp-assignments) — tokenizer, 한글 오토마타, 대회 참가  
 
 ### 🟠 Web & Cloud
-- [☁️ Image Conversion Service <🟠⚫🟢>](https://github.com/m97j/cloudapp) — Flask + AWS EC2  
+- [☁️ Image Conversion Service <🟠⚫🟢🔴[📷]>](https://github.com/m97j/cloudapp) — Flask + AWS EC2  
 - [🖥️ Kakao Login Web Service <🟠⚫>](https://github.com/m97j/WSD4_kakao_login_auth) — React + Node.js + MongoDB  
 
 ---
