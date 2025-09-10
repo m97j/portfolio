@@ -24,52 +24,63 @@
 </tr>
 </thead>
 <tbody>
+
 <tr>
 <td align="center">🔷</td>
 <td align="center">Game Client</td>
 <td align="left">
-🎮 <b>게임플레이</b> — 스토리·전투·퀘스트·규칙 시스템<br>
-🕹 <b>인터랙션</b> — 입력·UI·오브젝트 상호작용<br>
-🎯 <b>Actor/Pawn AI</b> — Actor·Pawn·Character 지능(FSM·BT·RL·경로 탐색)<br>
-🗺 <b>레벨/씬 구조</b> — 씬 구성·오브젝트 배치·최적화
+• 🎮 <b>게임플레이</b> — 스토리·전투·퀘스트·규칙 시스템<br>
+• 🕹 <b>인터랙션</b> — 입력·UI·오브젝트 상호작용<br>
+• 🎯 <b>Actor/Pawn AI</b> — Actor·Pawn·Character 지능(FSM·BT·RL·경로 탐색)<br>
+• 🗺 <b>레벨/씬 구조</b> — 씬 구성·오브젝트 배치·최적화
 </td>
 </tr>
+
 <tr>
 <td align="center">🔴</td>
 <td align="center">AI Development</td>
 <td align="left">
-🗣 NLP, 📷 CV, 🧠 DL/ML, 🎨 Generative AI(텍스트·이미지·3D·오브젝트 등 생성형 전반),<br>
-🔀 융합 AI(멀티모달·AGI-like 시스템), 🤖 AGI Research(단일모델 AGI 연구)
+• 🗣 NLP&nbsp;&nbsp;&nbsp;&nbsp;• 📷 CV&nbsp;&nbsp;&nbsp;&nbsp;• 🖇 Multimodal AI<br>
+• 🎨 Generative AI (텍스트·이미지·3D·오브젝트 등 생성형 전반)<br>
+• 🧠 Unified Intelligence System Development (AGI-like system dev)<br>
+• 🤖 AGI Research (단일모델 AGI 연구)
 </td>
 </tr>
+
 <tr>
 <td align="center">🟣</td>
 <td align="center">XR / Creative Tech</td>
 <td align="left">
-🥽 VR, 📱 AR, 🖌 VFX/그래픽, 🎬 시네마틱
+• 🥽 VR&nbsp;&nbsp;&nbsp;&nbsp;• 📱 AR<br>
+• 🖌 VFX/그래픽&nbsp;&nbsp;&nbsp;&nbsp;• 🎬 시네마틱
 </td>
 </tr>
+
 <tr>
 <td align="center">🟠</td>
 <td align="center">Web / API Development</td>
 <td align="left">
-🌐 Frontend, 🔌 API, 📊 Data Viz
+• 🌐 Frontend&nbsp;&nbsp;&nbsp;&nbsp;• 🔌 API&nbsp;&nbsp;&nbsp;&nbsp;• 📊 Data Viz
 </td>
 </tr>
+
 <tr>
 <td align="center">⚫</td>
 <td align="center">Backend / Server / Infra / DB</td>
 <td align="left">
-🗄 DB, 🔒 보안, ⚡ 실시간처리, 📡 네트워크
+• 🗄 DB&nbsp;&nbsp;&nbsp;&nbsp;• 🔒 보안<br>
+• ⚡ 실시간처리&nbsp;&nbsp;&nbsp;&nbsp;• 📡 네트워크
 </td>
 </tr>
+
 <tr>
 <td align="center">🟢</td>
 <td align="center">Cloud / DevOps</td>
 <td align="left">
-☁️ Cloud, 🔄 CI/CD, 🐳 Docker/K8s
+• ☁️ Cloud&nbsp;&nbsp;&nbsp;&nbsp;• 🔄 CI/CD&nbsp;&nbsp;&nbsp;&nbsp;• 🐳 Docker/K8s
 </td>
 </tr>
+
 </tbody>
 </table>
 
@@ -102,14 +113,14 @@
   Unity 기반 FPS (클라이언트 & 서버 로직 + Firebase/Photon)
 
 ### 🔴 AI Projects
-- [🤖 Persona Chat Engine <🔴⚫🔷>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화
-- [🤖 HAR safety AI <🔴>](https://github.com/m97j/har-safety-ai) — capston project기반 확장 프로젝트
+- [🤖 Persona Chat Engine <🔴[🗣🎨]⚫🔷>](https://github.com/m97j/persona-chat-engine) — 게임 내 NPC LLM 기반 대화
+- [🤖 HAR safety AI <🔴[🖇📷🧠]>](https://github.com/m97j/har-safety-ai) — capston project기반 확장 프로젝트
 
 ### 🎓 Academic Projects  
 - [📘 Artificial Intelligence <🔴>](https://github.com/m97j/pacman-ai) — 탐색/전략 알고리즘 구현  
 - [📘 Machine Learning <🔴>](https://github.com/m97j/ml-assignments) — 고전 ML 알고리즘 구현  
 - [📘 Data Mining <🔴⚫>](https://github.com/m97j/dm-assignments) — PageRank, 추천 시스템, Kaggle 실습  
-- [📘 Natural Language Processing <🔴>](https://github.com/m97j/nlp-assignments) — tokenizer, 한글 오토마타, 대회 참가  
+- [📘 Natural Language Processing <🔴[🗣]>](https://github.com/m97j/nlp-assignments) — tokenizer, 한글 오토마타, 대회 참가  
 
 ### 🟠 Web & Cloud
 - [☁️ Image Conversion Service <🟠⚫🟢>](https://github.com/m97j/cloudapp) — Flask + AWS EC2  
