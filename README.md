@@ -14,7 +14,7 @@
 
 
 ---
-## 🔖 [Project Tag Guide](guides/README.md)
+## 🔖 [Project Tag Guide](guides/)
 
 
 
