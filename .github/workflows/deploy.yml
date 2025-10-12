@@ -10,6 +10,8 @@ on:
     paths:
       - 'frontend/**'
       - 'backend/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
 
 jobs:
   changes:
@@ -17,6 +19,7 @@ jobs:
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
       backend: ${{ steps.filter.outputs.backend }}
+      workflows: ${{ steps.filter.outputs.workflows }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -27,10 +30,12 @@ jobs:
               - 'frontend/**'
             backend:
               - 'backend/**'
+            workflows:
+              - '.github/workflows/**'
 
   frontend:
     needs: changes
-    if: needs.changes.outputs.frontend == 'true'
+    if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.workflows == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -59,7 +64,7 @@ jobs:
 
   backend:
     needs: changes
-    if: needs.changes.outputs.backend == 'true'
+    if: needs.changes.outputs.backend == 'true' || needs.changes.outputs.workflows == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
