@@ -1,117 +1,32 @@
-param location string = resourceGroup().location
+targetScope = 'subscription'
+
+param resourceGroupName string
+param resourceGroupLocation string = 'koreacentral'
+
+resource rg 'Microsoft.Resources/resourceGroups@2024-11-01' = {
+  name: resourceGroupName
+  location: resourceGroupLocation
+}
+
+module infra 'infra-rg.bicep' = {
+  name: 'infraDeployment'
+  scope: rg
+  params: {
+    registryName: registryName
+    frontendAppName: frontendAppName
+    backendAppName: backendAppName
+    postgresName: postgresName
+    postgresDbName: postgresDbName
+    administratorLogin: administratorLogin
+    administratorLoginPassword: administratorLoginPassword
+  }
+}
+
 param registryName string
 param frontendAppName string
 param backendAppName string
 param postgresName string
-param postgresDbName string = 'portfolio' // DB 이름 파라미터
+param postgresDbName string = 'portfolio'
 @secure()
 param administratorLoginPassword string
-param administratorLogin string = 'pgadmin' // 사용자 이름도 파라미터화
-
-// ACR
-resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
-  name: registryName
-  location: location
-  sku: {
-    name: 'Basic'
-  }
-  properties: {}
-}
-
-// PostgreSQL Flexible Server
-resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
-  name: postgresName
-  location: location
-  sku: {
-    name: 'Standard_B1ms'
-    tier: 'Burstable'
-  }
-  properties: {
-    administratorLogin: administratorLogin
-    administratorLoginPassword: administratorLoginPassword
-    version: '15'
-    storage: {
-      storageSizeGB: 32
-    }
-  }
-}
-
-// PostgreSQL Database (parent 속성 사용)
-resource postgresDb 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2022-12-01' = {
-  name: postgresDbName
-  parent: postgres
-}
-
-// App Service Plan (Linux, Basic B1)
-resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
-  name: 'portfolio-plan'
-  location: location
-  sku: {
-    name: 'B1'
-    tier: 'Basic'
-    size: 'B1'
-    capacity: 1
-  }
-  kind: 'linux'
-  properties: {
-    reserved: true
-  }
-}
-
-// Backend App Service
-resource backendApp 'Microsoft.Web/sites@2022-09-01' = {
-  name: backendAppName
-  location: location
-  kind: 'app,linux,container'
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    serverFarmId: appServicePlan.id
-    siteConfig: {
-      linuxFxVersion: 'DOCKER|${acr.properties.loginServer}/${registryName}/backend:latest'
-    }
-  }
-}
-
-// Frontend App Service
-resource frontendApp 'Microsoft.Web/sites@2022-09-01' = {
-  name: frontendAppName
-  location: location
-  kind: 'app,linux,container'
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    serverFarmId: appServicePlan.id
-    siteConfig: {
-      linuxFxVersion: 'DOCKER|${acr.properties.loginServer}/${registryName}/frontend:latest'
-    }
-  }
-}
-
-// ACR Pull 권한 부여 (Backend)
-resource backendAcrPull 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid(acr.id, backendApp.id, 'acrpull')
-  scope: acr
-  properties: {
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions',
-      '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-    )
-    principalId: backendApp.identity.principalId
-  }
-}
-
-// ACR Pull 권한 부여 (Frontend)
-resource frontendAcrPull 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid(acr.id, frontendApp.id, 'acrpull')
-  scope: acr
-  properties: {
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions',
-      '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-    )
-    principalId: frontendApp.identity.principalId
-  }
-}
+param administratorLogin string = 'pgadmin'

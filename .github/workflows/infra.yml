@@ -21,10 +21,12 @@ jobs:
 
       - name: Deploy Bicep Template
         run: |
-          az deployment group create \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+          az deployment sub create \
+            --location koreacentral \
             --template-file infra/main.bicep \
             --parameters \
+              resourceGroupName=${{ secrets.RESOURCE_GROUP }} \
+              resourceGroupLocation=koreacentral \
               registryName=${{ secrets.ACR_NAME }} \
               frontendAppName=${{ secrets.FRONTEND_APP_NAME }} \
               backendAppName=${{ secrets.BACKEND_APP_NAME }} \
