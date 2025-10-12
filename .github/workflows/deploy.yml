@@ -1,32 +1,53 @@
 name: Deploy Frontend & Backend to Azure
 
 on:
+  workflow_run:
+    workflows: ["Provision Azure Infrastructure"]   # infra.yml의 name과 동일해야 함
+    types:
+      - completed
   push:
     branches: [ "main" ]
+    paths:
+      - 'frontend/**'
+      - 'backend/**'
 
 jobs:
-  build-and-deploy:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'frontend/**'
+            backend:
+              - 'backend/**'
+
+  frontend:
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Azure Login
-        uses: azure/login@v1
+      - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # ---------------------------
-      # Build & Push Frontend
-      # ---------------------------
-      - name: Build and Push Frontend
-        uses: docker/build-push-action@v5
+      - uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.ACR_NAME }}.azurecr.io
+          username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+          password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+      - uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
           tags: ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest
-
-      - name: Deploy Frontend
-        run: |
+      - run: |
           az webapp config container set \
             --name ${{ secrets.FRONTEND_APP_NAME }} \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
@@ -36,18 +57,26 @@ jobs:
             --name ${{ secrets.FRONTEND_APP_NAME }} \
             --resource-group ${{ secrets.RESOURCE_GROUP }}
 
-      # ---------------------------
-      # Build & Push Backend
-      # ---------------------------
-      - name: Build and Push Backend
-        uses: docker/build-push-action@v5
+  backend:
+    needs: changes
+    if: needs.changes.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.ACR_NAME }}.azurecr.io
+          username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+          password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+      - uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
           tags: ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest
-
-      - name: Deploy Backend
-        run: |
+      - run: |
           CONNECTION="postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_NAME }}.postgres.database.azure.com:5432/${{ secrets.POSTGRES_DB }}"
           az webapp config container set \
             --name ${{ secrets.BACKEND_APP_NAME }} \
@@ -61,4 +90,3 @@ jobs:
           az webapp restart \
             --name ${{ secrets.BACKEND_APP_NAME }} \
             --resource-group ${{ secrets.RESOURCE_GROUP }}
-
