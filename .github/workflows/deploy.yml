@@ -1,0 +1,64 @@
+name: Deploy Frontend & Backend to Azure
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # ---------------------------
+      # Build & Push Frontend
+      # ---------------------------
+      - name: Build and Push Frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest
+
+      - name: Deploy Frontend
+        run: |
+          az webapp config container set \
+            --name ${{ secrets.FRONTEND_APP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --docker-custom-image-name ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest \
+            --docker-registry-server-url https://${{ secrets.ACR_NAME }}.azurecr.io
+          az webapp restart \
+            --name ${{ secrets.FRONTEND_APP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }}
+
+      # ---------------------------
+      # Build & Push Backend
+      # ---------------------------
+      - name: Build and Push Backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest
+
+      - name: Deploy Backend
+        run: |
+          CONNECTION="postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_NAME }}.postgres.database.azure.com:5432/${{ secrets.POSTGRES_DB }}"
+          az webapp config container set \
+            --name ${{ secrets.BACKEND_APP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --docker-custom-image-name ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest \
+            --docker-registry-server-url https://${{ secrets.ACR_NAME }}.azurecr.io
+          az webapp config appsettings set \
+            --name ${{ secrets.BACKEND_APP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --settings DATABASE_URL=$CONNECTION
+          az webapp restart \
+            --name ${{ secrets.BACKEND_APP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }}
+
