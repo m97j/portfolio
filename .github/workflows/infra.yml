@@ -31,4 +31,5 @@ jobs:
               postgresName=${{ secrets.POSTGRES_NAME }} \
               postgresDbName=${{ secrets.POSTGRES_DB }} \
               administratorLogin=${{ secrets.POSTGRES_USER }} \
-              administratorLoginPassword=${{ secrets.POSTGRES_PASSWORD }}
+              administratorLoginPassword=${{ secrets.POSTGRES_PASSWORD }} \
+            --debug
