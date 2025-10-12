@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Header from "../components/Header";
-import Footer from "../components/Footer"; // Footer 컴포넌트도 있다면
+import Header from "../components/header";
+// import Footer from "../components/Footer"; // Footer 컴포넌트도 있다면
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className="bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors">
         <Header />
         <main className="pt-16 max-w-5xl mx-auto px-4">{children}</main>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );
