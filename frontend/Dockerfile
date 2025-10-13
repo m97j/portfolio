@@ -12,5 +12,5 @@ COPY . .
 # Next.js 빌드 (SSR 모드)
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 8080
 CMD ["npm", "run", "start"]

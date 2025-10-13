@@ -12,5 +12,5 @@ COPY . .
 # Prisma 빌드 (필요 시)
 RUN npx prisma generate
 
-EXPOSE 4000
+EXPOSE 8080
 CMD ["npm", "run", "start"]
