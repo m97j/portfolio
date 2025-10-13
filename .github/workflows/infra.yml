@@ -35,4 +35,4 @@ jobs:
               administratorLogin=${{ secrets.POSTGRES_USER }} \
               administratorLoginPassword=${{ secrets.POSTGRES_PASSWORD }} \
             --debug
-# fb 주석
+# fb 주석-
