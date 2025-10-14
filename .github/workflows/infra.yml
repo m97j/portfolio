@@ -26,5 +26,6 @@ jobs:
             --location koreacentral \
             --template-file infra/main.bicep \
             --parameters \
-              administratorLoginPassword=${{ secrets.POSTGRES_PASSWORD }} \
-              jwtSecret=${{ secrets.JWT_SECRET }}
+              administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
+              jwtSecret="${{ secrets.JWT_SECRET }}" \
+            --debug
