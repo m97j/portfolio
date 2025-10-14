@@ -1,6 +1,6 @@
 targetScope = 'subscription'
 
-param resourceGroupLocation string = 'koreacentral'
+param resourceGroupLocation string
 
 resource rg 'Microsoft.Resources/resourceGroups@2024-11-01' = {
   name: 'portfolio-rg'

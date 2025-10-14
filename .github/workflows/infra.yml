@@ -27,6 +27,8 @@ jobs:
             --location southeastasia \
             --template-file infra/main.bicep \
             --parameters \
+              resourceGroupLocation=southeastasia \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
             --debug
+
