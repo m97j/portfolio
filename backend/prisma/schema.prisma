@@ -1,3 +1,4 @@
+// backend/prisma/schema.prisma
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -7,19 +8,48 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Category {
+  projects
+  vlogs
+  notes
+}
+
 model Post {
-  id        String   @id @default(cuid())
-  title     String
-  slug      String   @unique
-  category  String   // "projects" | "vlogs" | "notes"
-  tags      String[] @db.Text
-  tagString String?  // "<🔴[🖇🎨]>"와 같은 원형 문자열 (선택)
-  summary   String?
-  contentMd String   // markdown 본문
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  visibility String  // "public" | "private"
-  language  String   // "ko" | "en"
-  githubUrl String?  // 코드 링크 (선택)
-  coverUrl  String?  // 카드 이미지 (Blob Storage 등)
+  id           String     @id @default(cuid())
+  slug         String     @unique
+  title        String
+  subtitle     String?
+  category     Category
+  contentMd    String
+  coverUrl     String?
+  visibility   String     @default("public")
+  language     String?
+  description  String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  tags         TagOnPost[]
+}
+
+model Tag {
+  id          String     @id @default(cuid())
+  emoji       String     @unique
+  label       String
+  description String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  posts       TagOnPost[]
+}
+
+model TagOnPost {
+  id       String  @id @default(cuid())
+  postId   String
+  tagId    String
+
+  post     Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag      Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  
+
+  @@unique([postId, tagId])
 }

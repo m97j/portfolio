@@ -1,10 +1,28 @@
+// frontend/components/Tag.tsx
 "use client";
-import { useState } from "react";
-import { TAG_GUIDE } from "@/lib/tagGuide";
+import { useEffect, useState } from "react";
+import { TAG_GUIDE_FALLBACK, TagInfo } from "@/lib/tagGuide";
+import { TagsAPI } from "@/lib/api";
+
+let TAG_CACHE: Record<string, TagInfo> | null = null;
 
 export default function Tag({ symbol, compact = false }: { symbol: string; compact?: boolean }) {
+  const [guide, setGuide] = useState<Record<string, TagInfo>>(TAG_CACHE || {});
   const [hover, setHover] = useState(false);
-  const info = TAG_GUIDE[symbol];
+  const info = guide[symbol] || TAG_GUIDE_FALLBACK[symbol];
+
+  useEffect(() => {
+    if (TAG_CACHE) return;
+    TagsAPI.list()
+      .then(({ items }) => {
+        const m: Record<string, TagInfo> = {};
+        items.forEach(t => { m[t.emoji] = { emoji: t.emoji, label: t.label, description: t.description }; });
+        TAG_CACHE = m;
+        setGuide(m);
+      })
+      .catch(() => setGuide(TAG_GUIDE_FALLBACK));
+  }, []);
+
   if (!info) return <span>{symbol}</span>;
   return (
     <span

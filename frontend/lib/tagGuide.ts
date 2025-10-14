@@ -1,5 +1,5 @@
 export type TagInfo = { emoji: string; label: string; description: string };
-export const TAG_GUIDE: Record<string, TagInfo> = {
+export const TAG_GUIDE_FALLBACK: Record<string, TagInfo> = {
   "🔷": { emoji: "🔷", label: "Game Client", description: "게임 클라이언트 전반" },
   "🔴": { emoji: "🔴", label: "AI Development", description: "AI 개발 전반" },
   "🟣": { emoji: "🟣", label: "XR / Creative Tech", description: "VR/AR/그래픽/시네마틱" },

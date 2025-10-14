@@ -1,7 +1,6 @@
 {
   "name": "portfolio-backend",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
     "build": "tsc",
@@ -10,13 +9,17 @@
     "prisma:migrate": "prisma migrate deploy"
   },
   "dependencies": {
+    "@azure/storage-blob": "^12.17.0",
     "@prisma/client": "^5.16.1",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "dotenv": "^17.2.3",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^24.7.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",

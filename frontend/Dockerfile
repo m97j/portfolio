@@ -2,15 +2,17 @@ FROM node:20
 
 WORKDIR /app
 
-# 패키지 설치
-COPY package.json package-lock.json ./
-RUN npm install
+# 패키지 설치 (devDependencies 제외)
+COPY package*.json ./
+RUN npm ci --omit=dev
 
 # 소스 복사
 COPY . .
 
-# Next.js 빌드 (SSR 모드)
+# Next.js 빌드 (SSR 서버 실행용)
 RUN npm run build
 
-EXPOSE 8080
+EXPOSE 3000
+
+# Next.js 서버 실행
 CMD ["npm", "run", "start"]

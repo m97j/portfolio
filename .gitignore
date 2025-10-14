@@ -1,5 +1,32 @@
+# Node.js
 node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist
+.next
+out
+
+# Prisma
+/prisma/generated/
+
+# Environment variables
 .env
 .env.local
-.next
-dist
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Temporary files
+tmp.md

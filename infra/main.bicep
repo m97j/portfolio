@@ -1,10 +1,9 @@
 targetScope = 'subscription'
 
-param resourceGroupName string
 param resourceGroupLocation string = 'koreacentral'
 
 resource rg 'Microsoft.Resources/resourceGroups@2024-11-01' = {
-  name: resourceGroupName
+  name: 'portfolio-rg'
   location: resourceGroupLocation
 }
 
@@ -12,21 +11,22 @@ module infra 'infra-rg.bicep' = {
   name: 'infraDeployment'
   scope: rg
   params: {
-    registryName: registryName
-    frontendAppName: frontendAppName
-    backendAppName: backendAppName
-    postgresName: postgresName
-    postgresDbName: postgresDbName
-    administratorLogin: administratorLogin
+    registryName: 'portfolioacrn3r0m8x'
+    frontendAppName: 'portfolio-frontend'
+    backendAppName: '3mj-portfolio-front-app08'
+    postgresName: 'nrmx308-pg-pf'
+    postgresDbName: 'portfolio'
+    administratorLogin: 'pgadmin'
     administratorLoginPassword: administratorLoginPassword
+    storageAccountName: 'portfoliostorage3m0j8' // 새로 지정 필요 (전역 유일)
+    storageContainerName: 'portfolio-media'
+    keyVaultName: 'portfolio-kv'
+    jwtSecret: jwtSecret
   }
 }
 
-param registryName string
-param frontendAppName string
-param backendAppName string
-param postgresName string
-param postgresDbName string = 'portfolio'
 @secure()
 param administratorLoginPassword string
-param administratorLogin string = 'pgadmin'
+
+@secure()
+param jwtSecret string

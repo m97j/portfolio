@@ -1,15 +1,41 @@
-name: Provision Azure Infrastructure
+name: Deploy Frontend & Backend to Azure
 
 on:
+  workflow_run:
+    workflows: ["Provision Azure Infrastructure"]   # infra.yml의 name과 동일해야 함
+    types:
+      - completed
   push:
     branches: [ "main" ]
     paths:
-      - 'infra/main.bicep'
-      - '.github/workflows/infra.yml'
+      - 'frontend/**'
+      - 'backend/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 jobs:
-  deploy-infra:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+      workflows: ${{ steps.filter.outputs.workflows }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'frontend/**'
+            backend:
+              - 'backend/**'
+            workflows:
+              - '.github/workflows/**'
+
+  frontend:
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.workflows == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,20 +45,64 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Bicep Template
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          registry: portfolioacrn3r0m8x.azurecr.io
+          username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+          password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+
+      - name: Build & Push Frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: portfolioacrn3r0m8x.azurecr.io/frontend:latest
+
+      - name: Update Frontend App
         run: |
-          az deployment sub create \
-            --location koreacentral \
-            --template-file infra/main.bicep \
-            --parameters \
-              resourceGroupName=${{ secrets.RESOURCE_GROUP }} \
-              resourceGroupLocation=koreacentral \
-              registryName=${{ secrets.ACR_NAME }} \
-              frontendAppName=${{ secrets.FRONTEND_APP_NAME }} \
-              backendAppName=${{ secrets.BACKEND_APP_NAME }} \
-              postgresName=${{ secrets.POSTGRES_NAME }} \
-              postgresDbName=${{ secrets.POSTGRES_DB }} \
-              administratorLogin=${{ secrets.POSTGRES_USER }} \
-              administratorLoginPassword=${{ secrets.POSTGRES_PASSWORD }} \
-            --debug
-# fb 주석-
+          az webapp config container set \
+            --name portfolio-frontend \
+            --resource-group portfolio-rg \
+            --docker-custom-image-name portfolioacrn3r0m8x.azurecr.io/frontend:latest \
+            --docker-registry-server-url https://portfolioacrn3r0m8x.azurecr.io
+          az webapp restart \
+            --name portfolio-frontend \
+            --resource-group portfolio-rg
+
+  backend:
+    needs: changes
+    if: needs.changes.outputs.backend == 'true' || needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          registry: portfolioacrn3r0m8x.azurecr.io
+          username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+          password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+
+      - name: Build & Push Backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: portfolioacrn3r0m8x.azurecr.io/backend:latest
+
+      - name: Update Backend App
+        run: |
+          az webapp config container set \
+            --name 3mj-portfolio-front-app08 \
+            --resource-group portfolio-rg \
+            --docker-custom-image-name portfolioacrn3r0m8x.azurecr.io/backend:latest \
+            --docker-registry-server-url https://portfolioacrn3r0m8x.azurecr.io
+          az webapp restart \
+            --name 3mj-portfolio-front-app08 \
+            --resource-group portfolio-rg

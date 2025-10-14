@@ -1,55 +1,105 @@
+// frontend/app/admin/dashboard/page.tsx
 "use client";
-import { useEffect, useState } from "react";
-import { adminCreatePost } from "@/lib/api";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 export default function AdminDashboard() {
-  const [form, setForm] = useState({
-    title: "",
-    slug: "",
-    category: "projects",
-    tags: "",
-    summary: "",
-    contentMd: "",
-    visibility: "public",
-    language: "ko",
-  });
+  const router = useRouter();
+  const [category, setCategory] = useState<"notes"|"vlogs"|"projects">("notes");
+  const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [contentMd, setContentMd] = useState<string>("# Hello\n\nInline math: $E=mc^2$");
+  const [emojis, setEmojis] = useState<string>("🟠 ⚫");
+  const [coverUrl, setCoverUrl] = useState("");
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const id = localStorage.getItem("ADMIN_ID")!;
-    const token = localStorage.getItem("ADMIN_TOKEN")!;
-    const dto = {
-      ...form,
-      tags: form.tags.split(",").map((t) => t.trim()),
+  // 로그인 체크
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (!token) router.push("/admin/login");
+  }, [router]);
+
+  async function handleCreate() {
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      alert("로그인이 필요합니다");
+      router.push("/admin/login");
+      return;
+    }
+
+    const emojiList = emojis.split(/[,\s]+/).filter(Boolean);
+    const body = {
+      slug,
+      title,
+      subtitle,
+      category,
+      contentMd,
+      coverUrl,
+      visibility: "public",
+      emojis: emojiList,
     };
-    const res = await adminCreatePost(dto, id, token);
-    alert("Created: " + res.slug);
-  };
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${category}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // ✅ JWT 첨부
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      alert(await res.text());
+      return;
+    }
+    const json = await res.json();
+    alert(`Created: ${json.slug}`);
+  }
 
   return (
-    <main className="max-w-3xl mx-auto pt-24 p-4">
-      <h1 className="text-2xl font-bold">Create Post</h1>
-      <form onSubmit={submit} className="grid grid-cols-2 gap-3">
-        <input placeholder="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })}/>
-        <input placeholder="slug" value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })}/>
-        <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
-          <option value="projects">projects</option>
-          <option value="vlogs">vlogs</option>
-          <option value="notes">notes</option>
-        </select>
-        <input placeholder="tags (comma separated)" value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })}/>
-        <input placeholder="summary" value={form.summary} onChange={(e) => setForm({ ...form, summary: e.target.value })}/>
-        <select value={form.visibility} onChange={(e) => setForm({ ...form, visibility: e.target.value })}>
-          <option value="public">public</option>
-          <option value="private">private</option>
-        </select>
-        <select value={form.language} onChange={(e) => setForm({ ...form, language: e.target.value })}>
-          <option value="ko">ko</option>
-          <option value="en">en</option>
-        </select>
-        <textarea className="col-span-2 h-64" placeholder="Markdown content" value={form.contentMd} onChange={(e) => setForm({ ...form, contentMd: e.target.value })}/>
-        <button className="col-span-2 btn">Create</button>
-      </form>
-    </main>
+    <div className="p-6 space-y-4">
+      <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <label>
+          Category
+          <select value={category} onChange={e => setCategory(e.target.value as any)} className="border p-2 rounded">
+            <option value="notes">Notes</option>
+            <option value="vlogs">Vlogs</option>
+            <option value="projects">Projects</option>
+          </select>
+        </label>
+        <label>
+          Slug
+          <input className="border p-2 rounded w-full" value={slug} onChange={e => setSlug(e.target.value)} />
+        </label>
+        <label>
+          Title
+          <input className="border p-2 rounded w-full" value={title} onChange={e => setTitle(e.target.value)} />
+        </label>
+        <label>
+          Subtitle
+          <input className="border p-2 rounded w-full" value={subtitle} onChange={e => setSubtitle(e.target.value)} />
+        </label>
+        <label>
+          Emojis
+          <input className="border p-2 rounded w-full" value={emojis} onChange={e => setEmojis(e.target.value)} />
+        </label>
+        <label>
+          Cover URL
+          <input className="border p-2 rounded w-full" value={coverUrl} onChange={e => setCoverUrl(e.target.value)} />
+        </label>
+      </div>
+
+      <div data-color-mode="light" className="border rounded">
+        <MDEditor value={contentMd} onChange={(v) => setContentMd(v || "")} height={400} />
+      </div>
+
+      <button className="px-4 py-2 bg-blue-600 text-white rounded" onClick={handleCreate}>
+        Create post
+      </button>
+    </div>
   );
 }

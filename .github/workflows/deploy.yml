@@ -39,28 +39,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: azure/login@v1
+
+      - name: Azure Login
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - uses: docker/login-action@v2
+
+      - name: Docker Login
+        uses: docker/login-action@v2
         with:
-          registry: ${{ secrets.ACR_NAME }}.azurecr.io
+          registry: portfolioacrn3r0m8x.azurecr.io
           username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
           password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
-      - uses: docker/build-push-action@v5
+
+      - name: Build & Push Frontend
+        uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest
-      - run: |
+          tags: portfolioacrn3r0m8x.azurecr.io/frontend:latest
+
+      - name: Update Frontend App
+        run: |
           az webapp config container set \
-            --name ${{ secrets.FRONTEND_APP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --docker-custom-image-name ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest \
-            --docker-registry-server-url https://${{ secrets.ACR_NAME }}.azurecr.io
+            --name portfolio-frontend \
+            --resource-group portfolio-rg \
+            --docker-custom-image-name portfolioacrn3r0m8x.azurecr.io/frontend:latest \
+            --docker-registry-server-url https://portfolioacrn3r0m8x.azurecr.io
           az webapp restart \
-            --name ${{ secrets.FRONTEND_APP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }}
+            --name portfolio-frontend \
+            --resource-group portfolio-rg
 
   backend:
     needs: changes
@@ -68,31 +76,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: azure/login@v1
+
+      - name: Azure Login
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - uses: docker/login-action@v2
+
+      - name: Docker Login
+        uses: docker/login-action@v2
         with:
-          registry: ${{ secrets.ACR_NAME }}.azurecr.io
+          registry: portfolioacrn3r0m8x.azurecr.io
           username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
           password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
-      - uses: docker/build-push-action@v5
+
+      - name: Build & Push Backend
+        uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
-          tags: ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest
-      - run: |
-          CONNECTION="postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_NAME }}.postgres.database.azure.com:5432/${{ secrets.POSTGRES_DB }}"
+          tags: portfolioacrn3r0m8x.azurecr.io/backend:latest
+
+      - name: Update Backend App
+        run: |
           az webapp config container set \
-            --name ${{ secrets.BACKEND_APP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --docker-custom-image-name ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest \
-            --docker-registry-server-url https://${{ secrets.ACR_NAME }}.azurecr.io
-          az webapp config appsettings set \
-            --name ${{ secrets.BACKEND_APP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --settings DATABASE_URL=$CONNECTION
+            --name 3mj-portfolio-front-app08 \
+            --resource-group portfolio-rg \
+            --docker-custom-image-name portfolioacrn3r0m8x.azurecr.io/backend:latest \
+            --docker-registry-server-url https://portfolioacrn3r0m8x.azurecr.io
           az webapp restart \
-            --name ${{ secrets.BACKEND_APP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }}
-# fb 주석-
+            --name 3mj-portfolio-front-app08 \
+            --resource-group portfolio-rg

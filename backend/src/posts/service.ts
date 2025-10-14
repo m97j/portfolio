@@ -1,43 +1,121 @@
-import { PrismaClient } from "@prisma/client";
-import { CreatePostDto, UpdatePostDto } from "../types/post";
-const prisma = new PrismaClient();
+// backend/src/posts/service.ts
+import { prisma } from '../utils/prisma';
+import { Category, Prisma } from '@prisma/client';
 
-export const PostsService = {
-  list: async (q?: { category?: string; keyword?: string; language?: string }) => {
-    return prisma.post.findMany({
-      where: {
-        category: q?.category,
-        language: q?.language,
-        visibility: "public",
-        OR: q?.keyword
-          ? [
-              { title: { contains: q.keyword, mode: "insensitive" } },
-              { tags: { has: q.keyword } },
-              { summary: { contains: q.keyword, mode: "insensitive" } },
-              { contentMd: { contains: q.keyword, mode: "insensitive" } }
-            ]
-          : undefined
-      },
-      orderBy: { createdAt: "desc" },
-      select: {
-        title: true, slug: true, summary: true, tags: true, tagString: true,
-        coverUrl: true, language: true, createdAt: true
-      }
-    });
-  },
+export async function listPosts(params: {
+  category?: Category;
+  keyword?: string;
+  emojiTags?: string[]; // filter by emoji
+  limit?: number;
+  offset?: number;
+}) {
+  const { category, keyword, emojiTags, limit = 20, offset = 0 } = params;
+  const where: Prisma.PostWhereInput = {
+    visibility: 'public',
+    ...(category ? { category } : {}),
+    ...(keyword ? {
+      OR: [
+        { title: { contains: keyword, mode: 'insensitive' } },
+        { subtitle: { contains: keyword, mode: 'insensitive' } },
+        { contentMd: { contains: keyword, mode: 'insensitive' } },
+        { description: { contains: keyword, mode: 'insensitive' } },
+      ]
+    } : {}),
+    ...(emojiTags?.length ? {
+      tags: { some: { tag: { emoji: { in: emojiTags } } } }
+    } : {}),
+  };
+  const [items, total] = await Promise.all([
+    prisma.post.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      include: { tags: { include: { tag: true } } },
+      skip: offset, take: limit,
+    }),
+    prisma.post.count({ where }),
+  ]);
+  return { items, total };
+}
 
-  getBySlug: async (slug: string) =>
-    prisma.post.findUnique({ where: { slug } }),
+export async function getPostBySlug(slug: string) {
+  return prisma.post.findUnique({
+    where: { slug },
+    include: { tags: { include: { tag: true } } },
+  });
+}
 
-  create: async (dto: CreatePostDto) => {
-    if (dto.category === "projects" && (!dto.tags || dto.tags.length === 0)) {
-      throw new Error("Projects must have at least one tag");
-    }
-    return prisma.post.create({ data: dto });
-  },
+export async function connectTagsByEmojis(postId: string, emojis: string[]) {
+  if (!emojis?.length) {
+    await prisma.tagOnPost.deleteMany({ where: { postId } });
+    return;
+  }
+  const tagRecords = await prisma.tag.findMany({ where: { emoji: { in: emojis } } });
+  await prisma.tagOnPost.deleteMany({ where: { postId } });
+  await prisma.tagOnPost.createMany({
+    data: tagRecords.map(t => ({ postId, tagId: t.id })),
+    skipDuplicates: true,
+  });
+}
 
-  update: async (slug: string, dto: UpdatePostDto) =>
-    prisma.post.update({ where: { slug }, data: dto }),
+export async function createPost(data: {
+  slug: string;
+  title: string;
+  subtitle?: string;
+  category: Category;
+  contentMd: string;
+  coverUrl?: string;
+  visibility?: string;
+  language?: string;
+  description?: string;
+  emojis?: string[];
+}) {
+  const post = await prisma.post.create({
+    data: {
+      slug: data.slug,
+      title: data.title,
+      subtitle: data.subtitle,
+      category: data.category,
+      contentMd: data.contentMd,
+      coverUrl: data.coverUrl,
+      visibility: data.visibility ?? 'public',
+      language: data.language,
+      description: data.description,
+    },
+  });
+  await connectTagsByEmojis(post.id, data.emojis || []);
+  return await getPostBySlug(post.slug);
+}
 
-  delete: async (slug: string) => prisma.post.delete({ where: { slug } })
-};
+export async function updatePost(id: string, data: {
+  slug?: string;
+  title?: string;
+  subtitle?: string;
+  category?: Category;
+  contentMd?: string;
+  coverUrl?: string;
+  visibility?: string;
+  language?: string;
+  description?: string;
+  emojis?: string[];
+}) {
+  const post = await prisma.post.update({
+    where: { id },
+    data: {
+      slug: data.slug,
+      title: data.title,
+      subtitle: data.subtitle,
+      category: data.category,
+      contentMd: data.contentMd,
+      coverUrl: data.coverUrl,
+      visibility: data.visibility,
+      language: data.language,
+      description: data.description,
+    },
+  });
+  if (data.emojis) await connectTagsByEmojis(post.id, data.emojis);
+  return await getPostBySlug(post.slug);
+}
+
+export async function deletePost(id: string) {
+  await prisma.post.delete({ where: { id } });
+}

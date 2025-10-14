@@ -1,28 +1,55 @@
+// frontend/app/admin/login/page.tsx
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function AdminLogin() {
   const [id, setId] = useState("");
-  const [token, setToken] = useState("");
-  const router = useRouter();
+  const [pw, setPw] = useState("");
+  const [error, setError] = useState("");
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // 간단히 localStorage 저장 후 대시보드로 이동
-    localStorage.setItem("ADMIN_ID", id);
-    localStorage.setItem("ADMIN_TOKEN", token);
-    router.push("/admin/dashboard");
-  };
+  async function handleLogin() {
+    setError("");
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, password: pw }),
+      });
+      if (!res.ok) {
+        setError("로그인 실패");
+        return;
+      }
+      const { token } = await res.json();
+      localStorage.setItem("adminToken", token);
+      window.location.href = "/admin/dashboard";
+    } catch (e) {
+      setError("서버 오류");
+    }
+  }
 
   return (
-    <main className="max-w-md mx-auto pt-24 p-4">
-      <h1 className="text-2xl font-bold">Admin Login</h1>
-      <form onSubmit={submit} className="mt-4 flex flex-col gap-3">
-        <input placeholder="admin id" value={id} onChange={(e) => setId(e.target.value)} />
-        <input placeholder="token" value={token} onChange={(e) => setToken(e.target.value)} />
-        <button className="btn">Login</button>
-      </form>
-    </main>
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
+      <input
+        className="border p-2 mb-2"
+        placeholder="ID"
+        value={id}
+        onChange={(e) => setId(e.target.value)}
+      />
+      <input
+        className="border p-2 mb-2"
+        type="password"
+        placeholder="Password"
+        value={pw}
+        onChange={(e) => setPw(e.target.value)}
+      />
+      <button
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+        onClick={handleLogin}
+      >
+        로그인
+      </button>
+      {error && <p className="text-red-500 mt-2">{error}</p>}
+    </div>
   );
 }
