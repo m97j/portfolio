@@ -86,10 +86,12 @@ resource dnsBlob 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   location: 'global'
 }
 resource dnsPg 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: '${postgresName}.private.postgres.database.azure.com'
+  // PostgreSQL Flexible Server는 고정 Zone 이름 사용
+  name: 'privatelink.postgres.database.azure.com'
   location: 'global'
 }
 
+// --------------------- DNS Zone Links ---------------------
 resource dnsKvLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
   name: 'kv-link'
   parent: dnsKv
@@ -117,6 +119,43 @@ resource dnsPgLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-0
   }
   dependsOn: [ dnsPg, vnet ]
 }
+
+// --------------------- PostgreSQL (Private Access) ---------------------
+resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2023-06-01' = {
+  name: postgresName
+  location: location
+  sku: {
+    name: 'Standard_B2s'
+    tier: 'Burstable'
+  }
+  properties: {
+    administratorLogin: administratorLogin
+    administratorLoginPassword: administratorLoginPassword
+    version: '17'
+    storage: {
+      storageSizeGB: 32
+      autoGrow: 'Enabled'
+    }
+    highAvailability: {
+      mode: 'Disabled'
+    }
+    availabilityZone: '1'
+    network: {
+      delegatedSubnetResourceId: pgSubnetId
+      privateDnsZoneArmResourceId: dnsPg.id
+    }
+    dataEncryption: { type: 'SystemManaged' }
+  }
+  // 반드시 DNS Zone Link 이후에 생성되도록 보장
+  dependsOn: [ vnet, dnsPgLink ]
+}
+
+resource postgresDb 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2022-12-01' = {
+  name: postgresDbName
+  parent: postgres
+  dependsOn: [ postgres ]
+}
+
 
 // --------------------- Storage Account ---------------------
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
@@ -239,41 +278,6 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   location: location
   sku: { name: 'Basic' }
   properties: {}
-}
-
-// --------------------- PostgreSQL (Private Access, 개발용) ---------------------
-resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2023-06-01' = {
-  name: postgresName
-  location: location
-  sku: {
-    name: 'Standard_B2s' // 포털: Burstable B2s, vCore 2
-    tier: 'Burstable'
-  }
-  properties: {
-    administratorLogin: administratorLogin
-    administratorLoginPassword: administratorLoginPassword
-    version: '17'
-    storage: {
-      storageSizeGB: 32
-      autoGrow: 'Enabled'
-    }
-    highAvailability: {
-      mode: 'Disabled'
-    }
-    availabilityZone: '1'
-    network: {
-      delegatedSubnetResourceId: pgSubnetId
-      privateDnsZoneArmResourceId: dnsPg.id
-    }
-    dataEncryption: { type: 'SystemManaged' }
-  }
-  dependsOn: [ vnet, dnsPg, dnsPgLink ]
-}
-
-resource postgresDb 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2022-12-01' = {
-  name: postgresDbName
-  parent: postgres
-  dependsOn: [ postgres ]
 }
 
 // --------------------- App Service Plan ---------------------

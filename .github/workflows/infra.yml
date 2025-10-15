@@ -47,3 +47,4 @@ jobs:
               jwtSecret="${{ secrets.JWT_SECRET }}" \
               location="koreacentral" \
             --debug
+# fb
