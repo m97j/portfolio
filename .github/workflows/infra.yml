@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'infra/infra-rg.bicep'
+      - 'infra/**'
       - '.github/workflows/infra.yml'
   workflow_dispatch:
 
@@ -19,32 +19,109 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # 리소스 그룹 생성 (이미 있으면 업데이트됨)
       - name: Create Resource Group
         run: |
-          az group create \
-            --name portfolio-rg \
-            --location koreacentral
+          az group create --name portfolio-rg --location koreacentral
 
-      # RG 스코프 배포
-      - name: Deploy Bicep Template
+      # 1. Network
+      - name: Deploy Network
         run: |
           az deployment group create \
-            --name infra-${{ github.run_number }} \
             --resource-group portfolio-rg \
-            --template-file infra/infra-rg.bicep \
+            --template-file infra/network.bicep \
+            --parameters location="koreacentral"
+            --debug
+
+      # 2. DNS Zones
+      - name: Deploy DNS Zones
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/dns.bicep
+            --debug
+
+      # 3. DNS Links
+      - name: Deploy DNS Links
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/dns-links.bicep \
+            --parameters vnetName="portfolio-vnet"
+            --debug
+
+      # 4. Database
+      - name: Deploy Database
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/database.bicep \
             --parameters \
-              registryName="portfolioacrn3r0m8x" \
-              frontendAppName="portfolio-frontend" \
-              backendAppName="3mj-portfolio-front-app08" \
+              location="koreacentral" \
               postgresName="nrmx308-pg-pf" \
               postgresDbName="portfolio" \
               administratorLogin="pgadmin" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
+              vnetName="portfolio-vnet" \
+              pgSubnetName="pgSubnet"
+            --debug
+
+      # 5. Storage
+      - name: Deploy Storage
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/storage.bicep \
+            --parameters \
+              location="koreacentral" \
               storageAccountName="portfoliostorage3m0j8" \
               storageContainerName="portfolio-media" \
+              vnetName="portfolio-vnet" \
+              peSubnetName="peSubnet"
+            --debug
+
+      # 6. Key Vault
+      - name: Deploy Key Vault
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/keyvault.bicep \
+            --parameters \
+              location="koreacentral" \
               keyVaultName="portfolio-kv" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
-              location="koreacentral" \
+              administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
+              storageAccountName="portfoliostorage3m0j8" \
+              vnetName="portfolio-vnet" \
+              peSubnetName="peSubnet"
             --debug
-# fb
+
+      # 7. ACR
+      - name: Deploy ACR
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/acr.bicep \
+            --parameters registryName="portfolioacrn3r0m8x" location="koreacentral"
+            --debug
+
+      # 8. Apps
+      - name: Deploy Apps
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/app.bicep \
+            --parameters \
+              location="koreacentral" \
+              planName="portfolio-plan" \
+              frontendAppName="portfolio-frontend" \
+              backendAppName="portfolio-backend" \
+              registryName="portfolioacr" \
+              vnetName="portfolio-vnet" \
+              appSubnetName="appSubnet" \
+              keyVaultName="portfolio-kv" \
+              postgresName="pf-pg" \
+              postgresDbName="portfolio" \
+              administratorLogin="pgadmin" \
+              storageAccountName="portfoliostorage" \
+              storageContainerName="portfolio-media"
+            --debug

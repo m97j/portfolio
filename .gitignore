@@ -28,7 +28,6 @@ out
 Thumbs.db
 *.swp
 
-tmp/**
 # Temporary files
 tmp.md
-tmp/**
+tmp
