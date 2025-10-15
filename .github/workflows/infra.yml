@@ -40,12 +40,12 @@ jobs:
             --template-file infra/dns.bicep \
             --debug
 
-      # 3. DNS Links
+      # 3. DNS Link
       - name: Deploy DNS Links
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
-            --template-file infra/dns-links.bicep \
+            --template-file infra/dns-link.bicep \
             --parameters vnetName="portfolio-vnet" \
             --debug
 
