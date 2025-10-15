@@ -140,3 +140,4 @@ jobs:
               backendAppName="portfolio-backend" \
               frontendOutboundIps='${{ fromJSON(steps.frontendIps.outputs.ips) }}' \
             --debug
+# 
