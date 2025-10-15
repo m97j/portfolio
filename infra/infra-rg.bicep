@@ -16,7 +16,7 @@ param postgresName string
 param postgresDbName string
 
 @description('PostgreSQL admin login')
-param administratorLogin string
+param administratorLogin string = 'pgadmin'
 
 @secure()
 @description('PostgreSQL admin password')
@@ -36,7 +36,7 @@ param keyVaultName string
 param jwtSecret string
 
 @description('Location')
-param location string = 'koreacentral'
+param location string = resourceGroup().location
 
 // --------------------- VNet & Subnets ---------------------
 resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' = {

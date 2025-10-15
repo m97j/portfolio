@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'infra/main.bicep'
       - 'infra/infra-rg.bicep'
       - '.github/workflows/infra.yml'
   workflow_dispatch:
@@ -20,15 +19,31 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # 리소스 그룹 생성 (이미 있으면 업데이트됨)
+      - name: Create Resource Group
+        run: |
+          az group create \
+            --name portfolio-rg \
+            --location koreacentral
+
+      # RG 스코프 배포
       - name: Deploy Bicep Template
         run: |
-          az deployment sub create \
-            --name main-${{ github.run_number }} \
-            --location koreacentral \
-            --template-file infra/main.bicep \
+          az deployment group create \
+            --name infra-${{ github.run_number }} \
+            --resource-group portfolio-rg \
+            --template-file infra/infra-rg.bicep \
             --parameters \
-              resourceGroupLocation=koreacentral \
+              registryName="portfolioacrn3r0m8x" \
+              frontendAppName="portfolio-frontend" \
+              backendAppName="3mj-portfolio-front-app08" \
+              postgresName="nrmx308-pg-pf" \
+              postgresDbName="portfolio" \
+              administratorLogin="pgadmin" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
+              storageAccountName="portfoliostorage3m0j8" \
+              storageContainerName="portfolio-media" \
+              keyVaultName="portfolio-kv" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
+              location="koreacentral" \
             --debug
-# fb-
