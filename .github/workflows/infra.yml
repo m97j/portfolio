@@ -79,7 +79,7 @@ jobs:
             --template-file infra/keyvault.bicep \
             --parameters \
               location="koreacentral" \
-              keyVaultName="portfolio-kv" \
+              keyVaultName="portfolio-kv-n3r0m8x" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
               storageAccountName="portfoliostorage3m0j8" \
