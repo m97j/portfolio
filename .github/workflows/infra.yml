@@ -32,24 +32,16 @@ jobs:
             --parameters location="koreacentral" \
             --debug
 
-      # 2. DNS Zones
-      - name: Deploy DNS Zones
+      # 2. DNS Zones + Links
+      - name: Deploy DNS Zones and Links
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/dns.bicep \
-            --debug
-
-      # 3. DNS Link
-      - name: Deploy DNS Links
-        run: |
-          az deployment group create \
-            --resource-group portfolio-rg \
-            --template-file infra/dns-link.bicep \
             --parameters vnetName="portfolio-vnet" \
             --debug
 
-      # 4. Database
+      # 3. Database
       - name: Deploy Database
         run: |
           az deployment group create \
@@ -65,7 +57,7 @@ jobs:
               pgSubnetName="pgSubnet" \
             --debug
 
-      # 5. Storage
+      # 4. Storage
       - name: Deploy Storage
         run: |
           az deployment group create \
@@ -79,7 +71,7 @@ jobs:
               peSubnetName="peSubnet" \
             --debug
 
-      # 6. Key Vault
+      # 5. Key Vault
       - name: Deploy Key Vault
         run: |
           az deployment group create \
@@ -95,7 +87,7 @@ jobs:
               peSubnetName="peSubnet" \
             --debug
 
-      # 7. ACR
+      # 6. ACR
       - name: Deploy ACR
         run: |
           az deployment group create \
@@ -104,7 +96,7 @@ jobs:
             --parameters registryName="portfolioacrn3r0m8x" location="koreacentral" \
             --debug
 
-      # 8. Apps
+      # 7. Apps
       - name: Deploy Apps
         run: |
           az deployment group create \
@@ -126,7 +118,7 @@ jobs:
               storageContainerName="portfolio-media" \
             --debug
 
-      # 9. Get Frontend Outbound IPs (JSON 배열로 변환)
+      # 8. Get Frontend Outbound IPs (JSON 배열로 변환)
       - name: Get Frontend Outbound IPs
         id: frontendIps
         run: |
@@ -138,7 +130,7 @@ jobs:
           json=$(echo $ips | jq -R 'split(",")')
           echo "ips=$json" >> $GITHUB_OUTPUT
 
-      # 10. Deploy Access Restriction
+      # 9. Deploy Access Restriction
       - name: Deploy Access Restriction
         run: |
           az deployment group create \
