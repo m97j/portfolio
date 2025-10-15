@@ -125,3 +125,4 @@ jobs:
               storageAccountName="portfoliostorage" \
               storageContainerName="portfolio-media"
             --debug
+# fb
