@@ -29,7 +29,7 @@ jobs:
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/network.bicep \
-            --parameters location="koreacentral"
+            --parameters location="koreacentral" \
             --debug
 
       # 2. DNS Zones
@@ -37,7 +37,7 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
-            --template-file infra/dns.bicep
+            --template-file infra/dns.bicep \
             --debug
 
       # 3. DNS Links
@@ -46,7 +46,7 @@ jobs:
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/dns-links.bicep \
-            --parameters vnetName="portfolio-vnet"
+            --parameters vnetName="portfolio-vnet" \
             --debug
 
       # 4. Database
@@ -62,7 +62,7 @@ jobs:
               administratorLogin="pgadmin" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
               vnetName="portfolio-vnet" \
-              pgSubnetName="pgSubnet"
+              pgSubnetName="pgSubnet" \
             --debug
 
       # 5. Storage
@@ -76,7 +76,7 @@ jobs:
               storageAccountName="portfoliostorage3m0j8" \
               storageContainerName="portfolio-media" \
               vnetName="portfolio-vnet" \
-              peSubnetName="peSubnet"
+              peSubnetName="peSubnet" \
             --debug
 
       # 6. Key Vault
@@ -92,7 +92,7 @@ jobs:
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
               storageAccountName="portfoliostorage3m0j8" \
               vnetName="portfolio-vnet" \
-              peSubnetName="peSubnet"
+              peSubnetName="peSubnet" \
             --debug
 
       # 7. ACR
@@ -101,7 +101,7 @@ jobs:
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/acr.bicep \
-            --parameters registryName="portfolioacrn3r0m8x" location="koreacentral"
+            --parameters registryName="portfolioacrn3r0m8x" location="koreacentral" \
             --debug
 
       # 8. Apps
@@ -123,6 +123,6 @@ jobs:
               postgresDbName="portfolio" \
               administratorLogin="pgadmin" \
               storageAccountName="portfoliostorage" \
-              storageContainerName="portfolio-media"
+              storageContainerName="portfolio-media" \
             --debug
 # fb
