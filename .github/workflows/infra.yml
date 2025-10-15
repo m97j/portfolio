@@ -31,4 +31,4 @@ jobs:
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
             --debug
-# fb
+# fb-
