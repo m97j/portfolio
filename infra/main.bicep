@@ -18,7 +18,7 @@ module infra 'infra-rg.bicep' = {
     postgresDbName: 'portfolio'
     administratorLogin: 'pgadmin'
     administratorLoginPassword: administratorLoginPassword
-    storageAccountName: 'portfoliostorage3m0j8' // 새로 지정 필요 (전역 유일)
+    storageAccountName: 'portfoliostorage3m0j8' // (전역 유일)
     storageContainerName: 'portfolio-media'
     keyVaultName: 'portfolio-kv'
     jwtSecret: jwtSecret

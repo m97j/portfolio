@@ -106,4 +106,4 @@ jobs:
           az webapp restart \
             --name 3mj-portfolio-front-app08 \
             --resource-group portfolio-rg
-# fb--
+# fb-

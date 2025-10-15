@@ -36,16 +36,14 @@ param keyVaultName string
 param jwtSecret string
 
 @description('Location')
-param location string = resourceGroup().location
+param location string = 'koreacentral'
 
 // --------------------- VNet & Subnets ---------------------
 resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' = {
   name: 'portfolio-vnet'
   location: location
   properties: {
-    addressSpace: {
-      addressPrefixes: [ '10.10.0.0/16' ]
-    }
+    addressSpace: { addressPrefixes: [ '10.10.0.0/16' ] }
     subnets: [
       {
         name: 'appSubnet'
@@ -75,8 +73,8 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' = {
 }
 
 var appSubnetId = '${vnet.id}/subnets/appSubnet'
-var pgSubnetId = '${vnet.id}/subnets/pgSubnet'
-var peSubnetId = '${vnet.id}/subnets/peSubnet'
+var pgSubnetId  = '${vnet.id}/subnets/pgSubnet'
+var peSubnetId  = '${vnet.id}/subnets/peSubnet'
 
 // --------------------- Private DNS Zones ---------------------
 resource dnsKv 'Microsoft.Network/privateDnsZones@2020-06-01' = {
@@ -88,7 +86,7 @@ resource dnsBlob 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   location: 'global'
 }
 resource dnsPg 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.postgres.database.azure.com'
+  name: '${postgresName}.private.postgres.database.azure.com'
   location: 'global'
 }
 
@@ -99,6 +97,7 @@ resource dnsKvLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-0
     virtualNetwork: { id: vnet.id }
     registrationEnabled: false
   }
+  dependsOn: [ dnsKv, vnet ]
 }
 resource dnsBlobLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
   name: 'blob-link'
@@ -107,6 +106,7 @@ resource dnsBlobLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020
     virtualNetwork: { id: vnet.id }
     registrationEnabled: false
   }
+  dependsOn: [ dnsBlob, vnet ]
 }
 resource dnsPgLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
   name: 'pg-link'
@@ -115,6 +115,7 @@ resource dnsPgLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-0
     virtualNetwork: { id: vnet.id }
     registrationEnabled: false
   }
+  dependsOn: [ dnsPg, vnet ]
 }
 
 // --------------------- Storage Account ---------------------
@@ -126,7 +127,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   properties: {
     supportsHttpsTrafficOnly: true
     minimumTlsVersion: 'TLS1_2'
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled' // 초기엔 Enabled로 두고 Endpoint 붙인 뒤 제한 권장
   }
 }
 
@@ -135,9 +136,8 @@ resource blobContainer 'Microsoft.Storage/storageAccounts/blobServices/container
   properties: { publicAccess: 'None' }
 }
 
-// Storage Key 조회 (함수 사용)
 var storageKeys = storageAccount.listKeys()
-var storageKey = storageKeys.keys[0].value
+var storageKey  = storageKeys.keys[0].value
 
 // Storage Private Endpoint
 resource storagePe 'Microsoft.Network/privateEndpoints@2023-05-01' = {
@@ -155,6 +155,7 @@ resource storagePe 'Microsoft.Network/privateEndpoints@2023-05-01' = {
       }
     ]
   }
+  dependsOn: [ storageAccount, vnet ]
 }
 
 resource storagePeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2020-03-01' = {
@@ -165,6 +166,7 @@ resource storagePeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2
       { name: 'blobzone', properties: { privateDnsZoneId: dnsBlob.id } }
     ]
   }
+  dependsOn: [ storagePe, dnsBlob, dnsBlobLink ]
 }
 
 // --------------------- Key Vault ---------------------
@@ -176,13 +178,12 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
     sku: { family: 'A', name: 'standard' }
     enableRbacAuthorization: true
     networkAcls: {
-      defaultAction: 'Deny'
+      defaultAction: 'Allow'
       bypass: 'AzureServices'
     }
   }
 }
 
-// Key Vault Private Endpoint
 resource kvPe 'Microsoft.Network/privateEndpoints@2023-05-01' = {
   name: 'pe-keyvault'
   location: location
@@ -198,6 +199,7 @@ resource kvPe 'Microsoft.Network/privateEndpoints@2023-05-01' = {
       }
     ]
   }
+  dependsOn: [ keyVault, vnet ]
 }
 
 resource kvPeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2020-03-01' = {
@@ -208,23 +210,27 @@ resource kvPeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2020-0
       { name: 'kvzone', properties: { privateDnsZoneId: dnsKv.id } }
     ]
   }
+  dependsOn: [ kvPe, dnsKv, dnsKvLink ]
 }
 
-// Secrets 저장 (parent 사용)
+// Secrets
 resource storageKeySecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   name: 'AZURE-STORAGE-KEY'
   parent: keyVault
   properties: { value: storageKey }
+  dependsOn: [ keyVault, storageAccount ]
 }
 resource dbPasswordSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   name: 'POSTGRES-PASSWORD'
   parent: keyVault
   properties: { value: administratorLoginPassword }
+  dependsOn: [ keyVault ]
 }
 resource jwtSecretRes 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   name: 'JWT-SECRET'
   parent: keyVault
   properties: { value: jwtSecret }
+  dependsOn: [ keyVault ]
 }
 
 // --------------------- ACR ---------------------
@@ -235,28 +241,39 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   properties: {}
 }
 
-// --------------------- PostgreSQL ---------------------
-resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
+// --------------------- PostgreSQL (Private Access, 개발용) ---------------------
+resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2023-06-01' = {
   name: postgresName
   location: location
-  sku: { name: 'Standard_B1ms', tier: 'Burstable' }
+  sku: {
+    name: 'Standard_B2s' // 포털: Burstable B2s, vCore 2
+    tier: 'Burstable'
+  }
   properties: {
     administratorLogin: administratorLogin
     administratorLoginPassword: administratorLoginPassword
-    version: '15'
-    storage: { storageSizeGB: 32 }
+    version: '17'
+    storage: {
+      storageSizeGB: 32
+      autoGrow: 'Enabled'
+    }
+    highAvailability: {
+      mode: 'Disabled'
+    }
+    availabilityZone: '1'
     network: {
       delegatedSubnetResourceId: pgSubnetId
       privateDnsZoneArmResourceId: dnsPg.id
     }
-    availabilityZone: '1'
     dataEncryption: { type: 'SystemManaged' }
   }
+  dependsOn: [ vnet, dnsPg, dnsPgLink ]
 }
 
 resource postgresDb 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2022-12-01' = {
   name: postgresDbName
   parent: postgres
+  dependsOn: [ postgres ]
 }
 
 // --------------------- App Service Plan ---------------------
@@ -266,56 +283,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   sku: { name: 'B1', tier: 'Basic', size: 'B1', capacity: 1 }
   kind: 'linux'
   properties: { reserved: true }
-}
-
-// --------------------- Backend App Service ---------------------
-resource backendApp 'Microsoft.Web/sites@2022-09-01' = {
-  name: backendAppName
-  location: location
-  kind: 'app,linux,container'
-  identity: { type: 'SystemAssigned' }
-  properties: {
-    serverFarmId: appServicePlan.id
-    siteConfig: {
-      linuxFxVersion: 'DOCKER|${acr.properties.loginServer}/${registryName}/backend:latest'
-      appSettings: [
-        // 비밀 아님: 평문 환경 변수
-        { name: 'POSTGRES_NAME', value: postgresName }
-        { name: 'POSTGRES_DB', value: postgresDbName }
-        { name: 'POSTGRES_USER', value: administratorLogin }
-        { name: 'AZURE_STORAGE_ACCOUNT', value: storageAccountName }
-        { name: 'AZURE_CONTAINER', value: storageContainerName }
-
-        // 비밀: Key Vault 참조
-        { name: 'POSTGRES_PASSWORD', value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=POSTGRES-PASSWORD)' }
-        { name: 'AZURE_STORAGE_KEY', value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=AZURE-STORAGE-KEY)' }
-        { name: 'JWT_SECRET', value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=JWT-SECRET)' }
-      ]
-    }
-    httpsOnly: true
-  }
-}
-
-// Backend VNet 통합
-resource backendVnetIntegration 'Microsoft.Web/sites/networkConfig@2022-03-01' = {
-  name: 'virtualNetwork'
-  parent: backendApp
-  properties: {
-    subnetResourceId: appSubnetId
-  }
-}
-
-// Key Vault Secret 접근 권한 (RBAC)
-resource kvSecretReader 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid(resourceGroup().id, backendApp.name, 'kv-secret-user')
-  scope: keyVault
-  properties: {
-    principalId: backendApp.identity.principalId
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions',
-      '4633458b-17de-408a-b874-0445c86b69e6' // Key Vault Secrets User
-    )
-  }
+  dependsOn: [ vnet ] // 네트워크 준비 후
 }
 
 // --------------------- Frontend App Service ---------------------
@@ -329,20 +297,54 @@ resource frontendApp 'Microsoft.Web/sites@2022-09-01' = {
     siteConfig: {
       linuxFxVersion: 'DOCKER|${acr.properties.loginServer}/${registryName}/frontend:latest'
       appSettings: [
-        // 프런트엔드가 공개값만 필요하다면 여기 추가 (예: PUBLIC_API_BASE_URL)
+        // 예: { name: 'PUBLIC_API_BASE_URL', value: 'https://example.com/api' }
       ]
     }
     httpsOnly: true
   }
+  dependsOn: [ appServicePlan, acr ]
 }
 
 // Frontend VNet 통합 (필요 시)
 resource frontendVnetIntegration 'Microsoft.Web/sites/networkConfig@2022-03-01' = {
   name: 'virtualNetwork'
   parent: frontendApp
+  properties: { subnetResourceId: appSubnetId }
+  dependsOn: [ frontendApp, vnet ]
+}
+
+// --------------------- Backend App Service ---------------------
+resource backendApp 'Microsoft.Web/sites@2022-09-01' = {
+  name: backendAppName
+  location: location
+  kind: 'app,linux,container'
+  identity: { type: 'SystemAssigned' }
   properties: {
-    subnetResourceId: appSubnetId
+    serverFarmId: appServicePlan.id
+    siteConfig: {
+      linuxFxVersion: 'DOCKER|${acr.properties.loginServer}/${registryName}/backend:latest'
+      appSettings: [
+        { name: 'POSTGRES_NAME', value: postgresName }
+        { name: 'POSTGRES_DB', value: postgresDbName }
+        { name: 'POSTGRES_USER', value: administratorLogin }
+        { name: 'AZURE_STORAGE_ACCOUNT', value: storageAccountName }
+        { name: 'AZURE_CONTAINER', value: storageContainerName }
+        { name: 'POSTGRES_PASSWORD', value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=POSTGRES-PASSWORD)' }
+        { name: 'AZURE_STORAGE_KEY', value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=AZURE-STORAGE-KEY)' }
+        { name: 'JWT_SECRET', value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=JWT-SECRET)' }
+      ]
+    }
+    httpsOnly: true
   }
+  dependsOn: [ appServicePlan, acr, keyVault, storageKeySecret, dbPasswordSecret, jwtSecretRes, postgresDb ]
+}
+
+// Backend VNet 통합
+resource backendVnetIntegration 'Microsoft.Web/sites/networkConfig@2022-03-01' = {
+  name: 'virtualNetwork'
+  parent: backendApp
+  properties: { subnetResourceId: appSubnetId }
+  dependsOn: [ backendApp, vnet ]
 }
 
 // --------------------- ACR Pull Role Assignments ---------------------
@@ -356,6 +358,7 @@ resource backendAcrPull 'Microsoft.Authorization/roleAssignments@2020-04-01-prev
     )
     principalId: backendApp.identity.principalId
   }
+  dependsOn: [ acr, backendApp ]
 }
 
 resource frontendAcrPull 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
@@ -368,4 +371,19 @@ resource frontendAcrPull 'Microsoft.Authorization/roleAssignments@2020-04-01-pre
     )
     principalId: frontendApp.identity.principalId
   }
+  dependsOn: [ acr, frontendApp ]
+}
+
+// --------------------- Key Vault Secret 접근 권한 (RBAC) ---------------------
+resource kvSecretReader 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+  name: guid(resourceGroup().id, backendApp.name, 'kv-secret-user')
+  scope: keyVault
+  properties: {
+    principalId: backendApp.identity.principalId
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      '4633458b-17de-408a-b874-0445c86b69e6' // Key Vault Secrets User
+    )
+  }
+  dependsOn: [ keyVault, backendApp ]
 }
