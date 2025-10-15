@@ -23,7 +23,7 @@ param pgSubnetName string = 'pgSubnet'
 var pgSubnetId = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, pgSubnetName)
 var dnsPgId    = resourceId('Microsoft.Network/privateDnsZones', 'privatelink.postgres.database.azure.com')
 
-resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2023-06-01' = {
+resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2024-08-01' = {
   name: postgresName
   location: location
   sku: { name: 'Standard_B2s', tier: 'Burstable' }

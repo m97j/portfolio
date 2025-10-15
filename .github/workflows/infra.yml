@@ -125,4 +125,26 @@ jobs:
               storageAccountName="portfoliostorage" \
               storageContainerName="portfolio-media" \
             --debug
-# fb
+
+      # 9. Get Frontend Outbound IPs (JSON 배열로 변환)
+      - name: Get Frontend Outbound IPs
+        id: frontendIps
+        run: |
+          ips=$(az webapp show \
+            --resource-group portfolio-rg \
+            --name portfolio-frontend \
+            --query outboundIpAddresses -o tsv)
+          # 쉼표로 구분된 문자열을 JSON 배열로 변환
+          json=$(echo $ips | jq -R 'split(",")')
+          echo "ips=$json" >> $GITHUB_OUTPUT
+
+      # 10. Deploy Access Restriction
+      - name: Deploy Access Restriction
+        run: |
+          az deployment group create \
+            --resource-group portfolio-rg \
+            --template-file infra/access-restriction.bicep \
+            --parameters \
+              backendAppName="portfolio-backend" \
+              frontendOutboundIps='${{ fromJSON(steps.frontendIps.outputs.ips) }}' \
+            --debug

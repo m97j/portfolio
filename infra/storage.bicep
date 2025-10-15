@@ -14,9 +14,10 @@ param vnetName string = 'portfolio-vnet'
 param peSubnetName string = 'peSubnet'
 
 var peSubnetId = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, peSubnetName)
-var dnsBlobId  = resourceId('Microsoft.Network/privateDnsZones', 'privatelink.blob.core.windows.net')
+var dnsBlobId  = resourceId('Microsoft.Network/privateDnsZones', 'privatelink.blob.${environment().suffixes.storage}')
 
-resource sa 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+// Storage Account
+resource sa 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageAccountName
   location: location
   sku: { name: 'Standard_LRS' }
@@ -28,14 +29,17 @@ resource sa 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   }
 }
 
-resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2023-01-01' = {
+// Blob Container
+resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2023-05-01' = {
   name: '${sa.name}/default/${storageContainerName}'
   properties: { publicAccess: 'None' }
 }
 
-var storageKeys = sa.listKeys()
-var storageKey  = storageKeys.keys[0].value
+// // Storage Keys
+// var storageKeys = sa.listKeys()
+// var storageKey  = storageKeys.keys[0].value
 
+// Private Endpoint
 resource storagePe 'Microsoft.Network/privateEndpoints@2023-05-01' = {
   name: 'pe-storage'
   location: location
@@ -51,10 +55,10 @@ resource storagePe 'Microsoft.Network/privateEndpoints@2023-05-01' = {
       }
     ]
   }
-  dependsOn: [ sa ]
 }
 
-resource storagePeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2020-03-01' = {
+// Private DNS Zone Group
+resource storagePeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-05-01' = {
   name: 'blob-dnsgrp'
   parent: storagePe
   properties: {

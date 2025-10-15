@@ -24,21 +24,21 @@ param storageAccountName string
 param storageContainerName string
 
 // Existing references
-resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {
-  name: vnetName
-}
+// resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {
+//   name: vnetName
+// }
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
   name: registryName
 }
 resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
   name: keyVaultName
 }
-resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2023-06-01' existing = {
-  name: postgresName
-}
-resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
-  name: storageAccountName
-}
+// resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2024-08-01' existing = {
+//   name: postgresName
+// }
+// resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
+//   name: storageAccountName
+// }
 
 var appSubnetId = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, appSubnetName)
 var acrLoginServer = '${registryName}.azurecr.io'

@@ -50,7 +50,6 @@ resource kvPe 'Microsoft.Network/privateEndpoints@2023-05-01' = {
       }
     ]
   }
-  dependsOn: [ kv ]
 }
 
 resource kvPeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2020-03-01' = {
@@ -64,7 +63,7 @@ resource kvPeDns 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2020-0
 }
 
 // Secrets: storage key, postgres password, jwt
-resource sa 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
+resource sa 'Microsoft.Storage/storageAccounts@2023-05-01' existing = {
   name: storageAccountName
 }
 var storageKeys = sa.listKeys()
