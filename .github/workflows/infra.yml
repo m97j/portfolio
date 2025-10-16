@@ -29,6 +29,7 @@ jobs:
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/network.bicep \
+            --parameters location="southeastasia" \
             --debug
 
       # 2. DNS Zones + Links
@@ -47,6 +48,7 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/database.bicep \
             --parameters \
+              location="southeastasia" \
               postgresName="nrmx308-pg-pf" \
               postgresDbName="portfolio" \
               administratorLogin="pgadmin" \
@@ -62,6 +64,7 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/storage.bicep \
             --parameters \
+              location="southeastasia" \
               storageAccountName="portfoliostorage3m0j8" \
               storageContainerName="portfolio-media" \
               vnetName="portfolio-vnet" \
@@ -75,6 +78,7 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/keyvault.bicep \
             --parameters \
+              location="southeastasia" \
               keyVaultName="portfolio-kv-n3r0m8x" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
@@ -89,7 +93,7 @@ jobs:
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/acr.bicep \
-            --parameters registryName="portfolioacrn3r0m8x" \
+            --parameters registryName="portfolioacrn3r0m8x" location="southeastasia" \
             --debug
 
       # 7. Apps
@@ -99,6 +103,7 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/app.bicep \
             --parameters \
+              location="southeastasia" \
               planName="portfolio-plan" \
               frontendAppName="portfolio-frontend" \
               backendAppName="portfolio-backend" \
