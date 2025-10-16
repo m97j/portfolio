@@ -21,7 +21,7 @@ jobs:
 
       - name: Create Resource Group
         run: |
-          az group create --name portfolio-rg --location koreacentral
+          az group create --name portfolio-rg --location southeastasia
 
       # 1. Network
       - name: Deploy Network
@@ -29,7 +29,6 @@ jobs:
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/network.bicep \
-            --parameters location="koreacentral" \
             --debug
 
       # 2. DNS Zones + Links
@@ -48,7 +47,6 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/database.bicep \
             --parameters \
-              location="koreacentral" \
               postgresName="nrmx308-pg-pf" \
               postgresDbName="portfolio" \
               administratorLogin="pgadmin" \
@@ -64,7 +62,6 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/storage.bicep \
             --parameters \
-              location="koreacentral" \
               storageAccountName="portfoliostorage3m0j8" \
               storageContainerName="portfolio-media" \
               vnetName="portfolio-vnet" \
@@ -78,7 +75,6 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/keyvault.bicep \
             --parameters \
-              location="koreacentral" \
               keyVaultName="portfolio-kv-n3r0m8x" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
@@ -93,7 +89,7 @@ jobs:
           az deployment group create \
             --resource-group portfolio-rg \
             --template-file infra/acr.bicep \
-            --parameters registryName="portfolioacrn3r0m8x" location="koreacentral" \
+            --parameters registryName="portfolioacrn3r0m8x" \
             --debug
 
       # 7. Apps
@@ -103,22 +99,21 @@ jobs:
             --resource-group portfolio-rg \
             --template-file infra/app.bicep \
             --parameters \
-              location="koreacentral" \
               planName="portfolio-plan" \
               frontendAppName="portfolio-frontend" \
               backendAppName="portfolio-backend" \
-              registryName="portfolioacr" \
+              registryName="portfolioacrn3r0m8x" \
               vnetName="portfolio-vnet" \
               appSubnetName="appSubnet" \
-              keyVaultName="portfolio-kv" \
-              postgresName="pf-pg" \
+              keyVaultName="portfolio-kv-n3r0m8x" \
+              postgresName="nrmx308-pg-pf" \
               postgresDbName="portfolio" \
               administratorLogin="pgadmin" \
-              storageAccountName="portfoliostorage" \
+              storageAccountName="portfoliostorage3m0j8" \
               storageContainerName="portfolio-media" \
             --debug
 
-      # 8. Get Frontend Outbound IPs (JSON 배열로 변환)
+      # 8. Get Frontend Outbound IPs
       - name: Get Frontend Outbound IPs
         id: frontendIps
         run: |
@@ -126,7 +121,6 @@ jobs:
             --resource-group portfolio-rg \
             --name portfolio-frontend \
             --query outboundIpAddresses -o tsv)
-          # 쉼표로 구분된 문자열을 JSON 배열로 변환
           json=$(echo $ips | jq -R 'split(",")')
           echo "ips=$json" >> $GITHUB_OUTPUT
 
