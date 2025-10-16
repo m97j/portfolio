@@ -47,7 +47,7 @@ var acrLoginServer = '${registryName}.azurecr.io'
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: planName
   location: location
-  sku: { name: 'B1', tier: 'Basic', size: 'B1', capacity: 1 }
+  sku: { name: 'S1', tier: 'Standard', size: 'S1', capacity: 1 }
   kind: 'linux'
   properties: { reserved: true }
 }

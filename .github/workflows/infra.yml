@@ -106,7 +106,7 @@ jobs:
             --name app-deploy-${{ github.run_id }} \
             --template-file infra/app.bicep \
             --parameters \
-              planName="portfolio-plan" \
+              planName="test" \
               frontendAppName="portfolio-frontend" \
               backendAppName="portfolio-backend" \
               registryName="portfolioacrn3r0m8x" \
