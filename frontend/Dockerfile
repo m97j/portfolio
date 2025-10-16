@@ -12,7 +12,7 @@ COPY . .
 # Next.js 빌드 (SSR 서버 실행용)
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 80
 
 # Next.js 서버 실행
 CMD ["npm", "run", "start"]

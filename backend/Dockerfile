@@ -32,7 +32,7 @@ COPY --from=build /app/prisma ./prisma
 
 # 환경 변수 및 포트 설정
 ENV NODE_ENV=production
-EXPOSE 8080
+EXPOSE 80
 
 # 앱 실행
 CMD ["node", "dist/index.js"]
