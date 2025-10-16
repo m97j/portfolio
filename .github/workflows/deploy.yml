@@ -2,7 +2,7 @@ name: Deploy Frontend & Backend to Azure
 
 on:
   workflow_run:
-    workflows: ["Provision Azure Infrastructure"]   # infra.yml의 name과 동일해야 함
+    workflows: ["Provision Azure Infrastructure"]   # infra.yml의 name과 동일
     types:
       - completed
   push:
@@ -64,8 +64,8 @@ jobs:
           az webapp config container set \
             --name portfolio-frontend \
             --resource-group portfolio-rg \
-            --docker-custom-image-name portfolioacrn3r0m8x.azurecr.io/frontend:latest \
-            --docker-registry-server-url https://portfolioacrn3r0m8x.azurecr.io
+            --container-image-name portfolioacrn3r0m8x.azurecr.io/frontend:latest \
+            --container-registry-url https://portfolioacrn3r0m8x.azurecr.io
           az webapp restart \
             --name portfolio-frontend \
             --resource-group portfolio-rg
@@ -99,11 +99,10 @@ jobs:
       - name: Update Backend App
         run: |
           az webapp config container set \
-            --name 3mj-portfolio-front-app08 \
+            --name mj-portfolio-backend \
             --resource-group portfolio-rg \
-            --docker-custom-image-name portfolioacrn3r0m8x.azurecr.io/backend:latest \
-            --docker-registry-server-url https://portfolioacrn3r0m8x.azurecr.io
+            --container-image-name portfolioacrn3r0m8x.azurecr.io/backend:latest \
+            --container-registry-url https://portfolioacrn3r0m8x.azurecr.io
           az webapp restart \
-            --name 3mj-portfolio-front-app08 \
+            --name mj-portfolio-backend \
             --resource-group portfolio-rg
-# 
