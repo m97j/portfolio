@@ -28,8 +28,8 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name network-deploy-${{ github.run_id }} \
             --template-file infra/network.bicep \
-            --parameters location="southeastasia" \
             --debug
 
       # 2. DNS Zones + Links
@@ -37,6 +37,7 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name dns-deploy-${{ github.run_id }} \
             --template-file infra/dns.bicep \
             --parameters vnetName="portfolio-vnet" \
             --debug
@@ -46,9 +47,9 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name db-deploy-${{ github.run_id }} \
             --template-file infra/database.bicep \
             --parameters \
-              location="southeastasia" \
               postgresName="nrmx308-pg-pf" \
               postgresDbName="portfolio" \
               administratorLogin="pgadmin" \
@@ -62,9 +63,9 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name storage-deploy-${{ github.run_id }} \
             --template-file infra/storage.bicep \
             --parameters \
-              location="southeastasia" \
               storageAccountName="portfoliostorage3m0j8" \
               storageContainerName="portfolio-media" \
               vnetName="portfolio-vnet" \
@@ -76,9 +77,9 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name kv-deploy-${{ github.run_id }} \
             --template-file infra/keyvault.bicep \
             --parameters \
-              location="southeastasia" \
               keyVaultName="portfolio-kv-n3r0m8x" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
@@ -92,8 +93,9 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name acr-deploy-${{ github.run_id }} \
             --template-file infra/acr.bicep \
-            --parameters registryName="portfolioacrn3r0m8x" location="southeastasia" \
+            --parameters registryName="portfolioacrn3r0m8x" \
             --debug
 
       # 7. Apps
@@ -101,9 +103,9 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name app-deploy-${{ github.run_id }} \
             --template-file infra/app.bicep \
             --parameters \
-              location="southeastasia" \
               planName="portfolio-plan" \
               frontendAppName="portfolio-frontend" \
               backendAppName="portfolio-backend" \
@@ -134,6 +136,7 @@ jobs:
         run: |
           az deployment group create \
             --resource-group portfolio-rg \
+            --name access-deploy-${{ github.run_id }} \
             --template-file infra/access-restriction.bicep \
             --parameters \
               backendAppName="portfolio-backend" \
