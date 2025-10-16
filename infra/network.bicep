@@ -19,7 +19,15 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' = {
     subnets: [
       {
         name: appSubnetName
-        properties: { addressPrefix: '10.10.1.0/24' }
+        properties: {
+          addressPrefix: '10.10.1.0/24'
+          delegations: [
+            {
+              name: 'appServiceDelegation'
+              properties: { serviceName: 'Microsoft.Web/serverFarms' }
+            }
+          ]
+        }
       }
       {
         name: pgSubnetName

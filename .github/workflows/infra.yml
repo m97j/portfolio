@@ -108,7 +108,7 @@ jobs:
             --parameters \
               planName="test" \
               frontendAppName="portfolio-frontend" \
-              backendAppName="portfolio-backend" \
+              backendAppName="mj-portfolio-backend" \
               registryName="portfolioacrn3r0m8x" \
               vnetName="portfolio-vnet" \
               appSubnetName="appSubnet" \
