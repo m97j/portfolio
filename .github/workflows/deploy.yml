@@ -106,3 +106,4 @@ jobs:
           az webapp restart \
             --name mj-portfolio-backend \
             --resource-group portfolio-rg
+# 
