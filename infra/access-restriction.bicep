@@ -3,19 +3,22 @@ targetScope = 'resourceGroup'
 @description('Backend App Service name')
 param backendAppName string
 
-@description('Frontend outbound IPs')
-param frontendOutboundIps array
+@description('Frontend outbound IPs (comma-separated string)')
+param frontendOutboundIps string
 
 resource backendApp 'Microsoft.Web/sites@2022-09-01' existing = {
   name: backendAppName
 }
 
+// 문자열을 배열로 변환
+var ipArray = split(frontendOutboundIps, ',')
+
 var allowFrontendIps = [
-  for (ip, i) in frontendOutboundIps: {
-    name: guid(backendApp.id, ip)   // 안전한 규칙 이름
+  for (ip, i) in ipArray: {
+    name: guid(backendApp.id, ip)
     action: 'Allow'
     ipAddress: '${ip}/32'
-    priority: 100 + i               // 규칙마다 우선순위 다르게
+    priority: 100 + i
     description: 'Allow only Frontend outbound IP'
   }
 ]
