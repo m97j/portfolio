@@ -142,3 +142,4 @@ jobs:
               backendAppName="mj-portfolio-backend" \
               frontendOutboundIps="${{ steps.frontendIps.outputs.ips }}" \
             --debug
+# 
