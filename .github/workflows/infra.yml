@@ -112,7 +112,7 @@ jobs:
               registryName="portfolioacrn3r0m8x" \
               vnetName="portfolio-vnet" \
               appSubnetName="appSubnet" \
-              keyVaultName="portfolio-kv-n3r0m8x" \
+              keyVaultName="portfolio-kv-3m0j8" \
               postgresName="nrmx308-pg-pf" \
               postgresDbName="portfolio" \
               administratorLogin="pgadmin" \
