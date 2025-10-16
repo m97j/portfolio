@@ -10,18 +10,16 @@ resource backendApp 'Microsoft.Web/sites@2022-09-01' existing = {
   name: backendAppName
 }
 
-// 먼저 허용 규칙 배열을 변수로 정의
 var allowFrontendIps = [
-  for ip in frontendOutboundIps: {
-    name: 'Allow-Frontend-${ip}'
+  for (ip, i) in frontendOutboundIps: {
+    name: guid(backendApp.id, ip)   // 안전한 규칙 이름
     action: 'Allow'
     ipAddress: '${ip}/32'
-    priority: 100
+    priority: 100 + i               // 규칙마다 우선순위 다르게
     description: 'Allow only Frontend outbound IP'
   }
 ]
 
-// Access Restriction 규칙 추가
 resource backendAccessRestrictions 'Microsoft.Web/sites/config@2022-09-01' = {
   name: 'web'
   parent: backendApp

@@ -129,7 +129,8 @@ jobs:
             --name portfolio-frontend \
             --query possibleOutboundIpAddresses \
             --output tsv)
-          json=$(echo $ips | jq -R 'split(",")')
+          # 쉼표로 구분된 문자열을 JSON 배열로 변환
+          json=$(echo $ips | jq -Rc 'split(",")')
           echo "ips=$json" >> $GITHUB_OUTPUT
 
       # 9. Deploy Access Restriction
@@ -143,3 +144,4 @@ jobs:
               backendAppName="mj-portfolio-backend" \
               frontendOutboundIps='${{ fromJSON(steps.frontendIps.outputs.ips) }}' \
             --debug
+
