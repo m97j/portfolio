@@ -80,7 +80,7 @@ jobs:
             --name kv-deploy-${{ github.run_id }} \
             --template-file infra/keyvault.bicep \
             --parameters \
-              keyVaultName="portfolio-kv-n3r0m8x" \
+              keyVaultName="portfolio-kv-3m0j8" \
               jwtSecret="${{ secrets.JWT_SECRET }}" \
               administratorLoginPassword="${{ secrets.POSTGRES_PASSWORD }}" \
               storageAccountName="portfoliostorage3m0j8" \
