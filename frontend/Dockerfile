@@ -1,18 +1,20 @@
-FROM node:20
-
+# 빌드 스테이지
+FROM node:20 AS builder
 WORKDIR /app
-
-# 패키지 설치 (devDependencies 제외)
 COPY package*.json ./
-RUN npm ci --omit=dev
-
-# 소스 복사
+RUN npm ci
 COPY . .
-
-# Next.js 빌드 (SSR 서버 실행용)
 RUN npm run build
 
-EXPOSE 80
+# 런타임 스테이지
+FROM node:20 AS runner
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
-# Next.js 서버 실행
+EXPOSE 80
 CMD ["npm", "run", "start"]
