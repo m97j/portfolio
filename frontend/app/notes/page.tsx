@@ -1,4 +1,6 @@
 // frontend/app/notes/page.tsx
+export const dynamic = "force-dynamic";
+
 import { PostsAPI } from "@/lib/api";
 
 export default async function NotesPage() {

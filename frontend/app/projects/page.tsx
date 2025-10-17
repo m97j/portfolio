@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { PostsAPI } from "@/lib/api";
 import ProjectCard from "@/components/ProjectCard";
 
