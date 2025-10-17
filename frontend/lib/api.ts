@@ -12,7 +12,7 @@ export async function fetchAuthJSON<T>(path: string, init: RequestInit = {}): Pr
     ...(init.headers || {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
-  const res = await fetch(`${BASE}${path}`, { ...init, headers });
+  const res = await fetch(`${BASE}${path}`, { cache: "no-cache", ...init, headers });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
