@@ -1,7 +1,4 @@
-/* styles/globals.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* frontend/styles/globals.css */
 @import "tailwindcss";
 @plugin "daisyui";
 
