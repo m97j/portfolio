@@ -42,11 +42,11 @@ export default function AdminDashboard() {
       emojis: emojiList,
     };
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${category}`, {
+    const res = await fetch(`/api/${category}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // ✅ JWT 첨부
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
