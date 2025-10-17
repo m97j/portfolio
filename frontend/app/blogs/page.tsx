@@ -12,11 +12,11 @@ export default async function VlogsPage() {
 
   return (
     <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-semibold">Dev / Study Vlogs</h1>
+      <h1 className="text-2xl font-semibold">Dev / Study Blogs</h1>
       <div className="grid gap-4 md:grid-cols-2">
         {data.items.length === 0 ? (
           <p className="col-span-full text-center text-gray-500">
-            아직 등록된 Vlog가 없습니다.
+            아직 등록된 Blog가 없습니다.
           </p>
         ) : (
           data.items.map((p) => (

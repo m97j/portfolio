@@ -1,6 +1,17 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+/* styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
 
-/* Prose for markdown */
-.prose { max-width: 100ch; }
+
+/* Markdown 스타일 */
+.prose {
+  max-width: 100ch;
+  margin: auto;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* 필요 시 커스텀 스타일 추가 */

@@ -16,31 +16,27 @@ type Project = {
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <Link
-      href={`/projects/${project.slug}`}
-      className="group block border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-200 bg-white dark:bg-gray-900"
-    >
+    <div className="card bg-base-100 dark:bg-neutral shadow-xl hover:shadow-2xl transition">
       {/* Cover Image */}
-      <div className="relative w-full h-48 bg-gray-100 dark:bg-gray-800">
+      <figure className="relative w-full aspect-[16/9] bg-base-200">
         {project.coverUrl ? (
           <Image
             src={project.coverUrl}
             alt={project.title}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority={false}
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-400">
             No Image
           </div>
         )}
-      </div>
+      </figure>
 
       {/* Content */}
-      <div className="p-4">
-        <h2 className="text-lg font-semibold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+      <div className="card-body">
+        <h2 className="card-title hover:text-primary transition">
           {project.title}
         </h2>
 
@@ -49,18 +45,22 @@ export default function ProjectCard({ project }: { project: Project }) {
         )}
 
         {project.summary && (
-          <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
-            {project.summary}
-          </p>
+          <p className="text-sm opacity-80 line-clamp-2">{project.summary}</p>
         )}
 
         {(project.tags?.length || project.language) && (
-          <p className="text-sm text-gray-500 mt-3">
+          <p className="text-xs opacity-60">
             {project.tags?.join(", ")}
             {project.language && ` • ${project.language.toUpperCase()}`}
           </p>
         )}
+
+        <div className="card-actions justify-end mt-2">
+          <Link href={`/projects/${project.slug}`} className="btn btn-sm btn-primary">
+            View
+          </Link>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 }

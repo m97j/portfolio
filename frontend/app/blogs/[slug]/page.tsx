@@ -14,7 +14,7 @@ export default async function VlogDetail({ params }: { params: { slug: string } 
   if (!post) {
     return (
       <div className="p-6">
-        <p className="text-gray-500">존재하지 않는 Vlog입니다.</p>
+        <p className="text-gray-500">존재하지 않는 Blog입니다.</p>
       </div>
     );
   }

@@ -1,41 +1,51 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import Image from "next/image";
 import Link from "next/link";
 import DarkModeToggle from "./DarkModeToggle";
 
 export default function Header() {
-  const [visible, setVisible] = useState(true);
-  const [lastY, setLastY] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (y > lastY && y - lastY > 10) setVisible(false); // scrolling down
-      else if (lastY - y > 10) setVisible(true);         // slight scroll up
-      setLastY(y);
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [lastY]);
-
   return (
-    <div
-      className={`fixed top-0 left-0 right-0 transition-transform duration-200 ${
-        visible ? "translate-y-0" : "-translate-y-full"
-      } bg-white dark:bg-black/80 backdrop-blur`}
-    >
-      <nav className="max-w-5xl mx-auto flex items-center justify-between p-3">
-        <div className="flex gap-4">
-          <Link href="/">Home</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/vlogs">Dev Vlog</Link>
-          <Link href="/notes">Notes</Link>
+    <header className="navbar bg-base-100 shadow-md sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto flex w-full items-center justify-center relative">
+        {/* 왼쪽 로고 */}
+        <div className="absolute left-4">
+          <Link href="/" className="btn btn-ghost normal-case text-xl">
+            <Image
+              src="/favicon.png"
+              alt="Minjae Logo"
+              width={120}
+              height={40}
+              className="h-10 w-auto"
+              priority
+            />
+          </Link>
         </div>
-        <div className="flex items-center gap-3">
+
+        {/* 가운데 메뉴 */}
+        <ul className="menu menu-horizontal text-sm font-medium gap-x-6">
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/blogs">Blogs</Link>
+          </li>
+          <li>
+            <Link href="/projects">Projects</Link>
+          </li>
+          <li>
+            <Link href="/notes">Study Notes</Link>
+          </li>
+          <li>
+            <Link href="/info">Information</Link>
+          </li>
+        </ul>
+
+        {/* 오른쪽 다크모드 토글 */}
+        <div className="absolute right-4">
           <DarkModeToggle />
-          <Link href="/admin/login">Admin</Link>
         </div>
-      </nav>
-    </div>
+      </div>
+    </header>
   );
 }
