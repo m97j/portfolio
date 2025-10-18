@@ -23,13 +23,13 @@ export async function fetchAuthJSON<T>(path: string, init: RequestInit = {}): Pr
 // Posts
 export const PostsAPI = {
   list: (category: "notes" | "vlogs" | "projects", params: URLSearchParams) =>
-    fetchJSON<{ items: any[]; total: number }>(`/${category}?${params.toString()}`),
+    fetchJSON<{ items: any[]; total: number }>(`/api/${category}?${params.toString()}`),
   bySlug: (category: "notes" | "vlogs" | "projects", slug: string) =>
-    fetchJSON<any>(`/${category}/${slug}`),
+    fetchJSON<any>(`/api/${category}/${slug}`),
 };
 
 // Tags
 export const TagsAPI = {
   list: () =>
-    fetchJSON<{ items: { emoji: string; label: string; description: string }[] }>(`/tags`),
+    fetchJSON<{ items: { emoji: string; label: string; description: string }[] }>(`/api/tags`),
 };
