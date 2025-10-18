@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { fetchAuthJSON } from "@/lib/api";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -16,10 +17,21 @@ export default function AdminDashboard() {
   const [emojis, setEmojis] = useState<string>("🟠 ⚫");
   const [coverUrl, setCoverUrl] = useState("");
 
-  // 로그인 체크
+  // 로그인 체크 (토큰 없거나 만료 시 로그인 페이지로 이동)
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
-    if (!token) router.push("/admin/login");
+    if (!token) {
+      router.push("/admin/login");
+      return;
+    }
+
+    // 선택적으로 토큰 검증 API 호출 가능
+    fetchAuthJSON("/api/auth/verify")
+      .catch(() => {
+        alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
+        localStorage.removeItem("adminToken");
+        router.push("/admin/login");
+      });
   }, [router]);
 
   async function handleCreate() {
@@ -42,21 +54,22 @@ export default function AdminDashboard() {
       emojis: emojiList,
     };
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${category}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!res.ok) {
-      alert(await res.text());
-      return;
+    try {
+      const json = await fetchAuthJSON<any>(`/api/${category}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      alert(`Created: ${json.slug}`);
+    } catch (err: any) {
+      if (err.message.includes("Unauthorized")) {
+        alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
+        localStorage.removeItem("adminToken");
+        router.push("/admin/login");
+      } else {
+        alert(err.message || "생성 실패");
+      }
     }
-    const json = await res.json();
-    alert(`Created: ${json.slug}`);
   }
 
   return (

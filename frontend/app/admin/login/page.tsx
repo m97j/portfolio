@@ -1,6 +1,7 @@
 // frontend/app/admin/login/page.tsx
 "use client";
 import { useState } from "react";
+import { fetchJSON } from "@/lib/api";
 
 export default function AdminLogin() {
   const [id, setId] = useState("");
@@ -10,20 +11,15 @@ export default function AdminLogin() {
   async function handleLogin() {
     setError("");
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
+      const { token } = await fetchJSON<{ token: string }>("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, password: pw }),
       });
-      if (!res.ok) {
-        setError("로그인 실패");
-        return;
-      }
-      const { token } = await res.json();
       localStorage.setItem("adminToken", token);
       window.location.href = "/admin/dashboard";
     } catch (e) {
-      setError("서버 오류");
+      setError("로그인 실패");
     }
   }
 

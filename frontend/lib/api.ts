@@ -1,6 +1,5 @@
 // frontend/lib/api.ts
 
-// 프론트/SSR 모두에서 사용할 백엔드 API 주소
 const BASE = process.env.NEXT_PUBLIC_API_URL!; 
 
 export async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
@@ -20,12 +19,30 @@ export async function fetchAuthJSON<T>(path: string, init: RequestInit = {}): Pr
   return res.json();
 }
 
-// Posts
+// Posts API 확장
 export const PostsAPI = {
-  list: (category: "notes" | "vlogs" | "projects", params: URLSearchParams) =>
+  list: (category: "notes" | "blogs" | "projects", params: URLSearchParams) =>
     fetchJSON<{ items: any[]; total: number }>(`/api/${category}?${params.toString()}`),
-  bySlug: (category: "notes" | "vlogs" | "projects", slug: string) =>
+
+  bySlug: (category: "notes" | "blogs" | "projects", slug: string) =>
     fetchJSON<any>(`/api/${category}/${slug}`),
+
+  create: (category: "notes" | "blogs" | "projects", body: any) =>
+    fetchAuthJSON<any>(`/api/${category}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    }),
+
+  update: (category: "notes" | "blogs" | "projects", id: string, body: any) =>
+    fetchAuthJSON<any>(`/api/${category}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    }),
+
+  delete: (category: "notes" | "blogs" | "projects", id: string) =>
+    fetchAuthJSON<void>(`/api/${category}/${id}`, { method: "DELETE" }),
 };
 
 // Tags

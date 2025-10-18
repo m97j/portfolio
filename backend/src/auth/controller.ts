@@ -18,3 +18,7 @@ export function login(req: Request, res: Response) {
 export function ping(req: Request, res: Response) {
   res.json({ ok: true });
 }
+
+export function verify(req: Request, res: Response) {
+  res.json({ valid: true, user: req.user });
+}

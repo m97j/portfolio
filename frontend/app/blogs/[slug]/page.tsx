@@ -1,3 +1,4 @@
+// frontend/app/blogs/%5Bslug%5D/page.tsx
 import { PostsAPI } from "@/lib/api";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import TagList from "@/components/TagList";
@@ -6,7 +7,7 @@ export default async function VlogDetail({ params }: { params: { slug: string } 
   let post: any = null;
 
   try {
-    post = await PostsAPI.bySlug("vlogs", params.slug);
+    post = await PostsAPI.bySlug("blogs", params.slug);
   } catch (e) {
     console.error("Failed to fetch vlog:", e);
   }

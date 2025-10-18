@@ -7,7 +7,7 @@ export default async function VlogsPage() {
   let data: { items: any[] } = { items: [] };
 
   try {
-    data = await PostsAPI.list("vlogs", params);
+    data = await PostsAPI.list("blogs", params);
   } catch (e) {
     console.error("Failed to fetch vlogs:", e);
   }
@@ -24,7 +24,7 @@ export default async function VlogsPage() {
           data.items.map((p) => (
             <a
               key={p.slug}
-              href={`/vlogs/${p.slug}`}
+              href={`/blogs/${p.slug}`}
               className="block border rounded p-4 hover:shadow"
             >
               <h2 className="font-semibold">{p.title}</h2>
