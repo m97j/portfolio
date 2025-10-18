@@ -11,14 +11,20 @@ export default function AdminLogin() {
   async function handleLogin() {
     setError("");
     try {
+      // 절대 URL 보정된 fetchJSON 사용
       const { token } = await fetchJSON<{ token: string }>("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, password: pw }),
       });
+
+      // 토큰 저장
       localStorage.setItem("adminToken", token);
+
+      // 대시보드로 이동
       window.location.href = "/admin/dashboard";
-    } catch (e) {
+    } catch (e: any) {
+      console.error("Login error:", e);
       setError("로그인 실패");
     }
   }

@@ -10,9 +10,16 @@ export default function NoteDetail({ params }: { params: { slug: string } }) {
   const router = useRouter();
   const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+  const [token, setToken] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    // 토큰 로드
+    if (typeof window !== "undefined") {
+      setToken(localStorage.getItem("adminToken"));
+    }
+
+    // 글 데이터 로드
     PostsAPI.bySlug("notes", params.slug)
       .then(setPost)
       .catch((e) => console.error("Failed to fetch note:", e))
@@ -34,9 +41,10 @@ export default function NoteDetail({ params }: { params: { slug: string } }) {
     try {
       await PostsAPI.delete("notes", post.id);
       alert("삭제 완료");
-      router.push("/notes");
+      router.replace("/notes");
     } catch (err: any) {
-      alert(err.message || "삭제 실패");
+      console.error(err);
+      setError(err.message || "삭제 실패");
       if (err.message.includes("Unauthorized")) {
         localStorage.removeItem("adminToken");
         router.push("/admin/login");
@@ -54,6 +62,8 @@ export default function NoteDetail({ params }: { params: { slug: string } }) {
       <p className="text-gray-500">{post.subtitle}</p>
       <TagList tagString={tagString} />
       <MarkdownRenderer content={post.contentMd} />
+
+      {error && <p className="text-red-500">{error}</p>}
 
       {/* Admin 로그인 시에만 버튼 노출 */}
       {token && (
