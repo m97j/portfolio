@@ -1,5 +1,8 @@
 // frontend/lib/api.ts
-const BASE = process.env.NEXT_PUBLIC_API_URL!;
+
+// BASE는 이제 상대경로만 사용 (Next.js Route Handler가 프록시 역할)
+const BASE = ""; 
+
 export async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, init);
   if (!res.ok) throw new Error(await res.text());
@@ -19,13 +22,14 @@ export async function fetchAuthJSON<T>(path: string, init: RequestInit = {}): Pr
 
 // Posts
 export const PostsAPI = {
-  list: (category: 'notes'|'vlogs'|'projects', params: URLSearchParams) =>
-    fetchJSON<{ items: any[], total: number }>(`/api/${category}?${params.toString()}`),
-  bySlug: (category: 'notes'|'vlogs'|'projects', slug: string) =>
+  list: (category: "notes" | "vlogs" | "projects", params: URLSearchParams) =>
+    fetchJSON<{ items: any[]; total: number }>(`/api/${category}?${params.toString()}`),
+  bySlug: (category: "notes" | "vlogs" | "projects", slug: string) =>
     fetchJSON<any>(`/api/${category}/${slug}`),
 };
 
 // Tags
 export const TagsAPI = {
-  list: () => fetchJSON<{ items: { emoji: string; label: string; description: string }[] }>(`/api/tags`),
+  list: () =>
+    fetchJSON<{ items: { emoji: string; label: string; description: string }[] }>(`/api/tags`),
 };
