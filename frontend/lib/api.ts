@@ -1,11 +1,17 @@
 // frontend/lib/api.ts
 
-// BASE는 항상 상대경로 (Next.js API Route 프록시를 거침)
-const BASE = "";
+function getBaseUrl() {
+  if (typeof window !== "undefined") {
+    // 클라이언트: 브라우저가 알아서 현재 origin을 붙여줌
+    return "";
+  }
+  // 서버: 절대 URL 필요
+  return process.env.API_URL ?? "http://localhost:3000";
+}
 
 function buildUrl(path: string) {
   if (path.startsWith("http")) return path;
-  return `${BASE}${path}`;
+  return `${getBaseUrl()}${path}`;
 }
 
 // 일반 fetch
