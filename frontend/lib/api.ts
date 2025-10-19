@@ -15,7 +15,7 @@ function buildUrl(path: string) {
 
 // 일반 fetch
 export async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(buildUrl(path), init);
+  const res = await fetch(buildUrl(path), { cache: "no-cache", credentials: "include", ...init });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
