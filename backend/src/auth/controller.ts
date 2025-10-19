@@ -24,6 +24,7 @@ export function login(req: Request, res: Response) {
     httpOnly: true,
     secure: true,
     sameSite: "none",
+    path: "/api/auth/refresh",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 

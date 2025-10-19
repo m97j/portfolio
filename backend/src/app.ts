@@ -15,7 +15,8 @@ export const app = express();
 
 // CORS 설정 (프론트엔드 도메인 명시)
 app.use(cors({
-  origin: process.env.FRONTEND_ORIGIN, // 프론트엔드 App Service 도메인
+//   origin: process.env.FRONTEND_ORIGIN, // 프론트엔드 App Service 도메인
+  origin: "portfolio-frontend.azurewebsites.net",
   credentials: true, // 쿠키 허용
 }));
 
