@@ -17,14 +17,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "API_URL not configured" }, { status: 500 });
   }
 
-  // refresh는 body가 필요 없고, 쿠키 기반으로 동작
   const res = await fetch(`${base}/api/auth/refresh`, {
     method: "POST",
     headers: {
       cookie: req.headers.get("cookie") || "",
     },
+    credentials: "include", 
   });
 
   const data = await res.json();
-  return NextResponse.json(data, { status: res.status });
+  const response = NextResponse.json(data, { status: res.status });
+
+  const setCookie = res.headers.get("set-cookie");
+  if (setCookie) {
+    response.headers.set("set-cookie", setCookie);
+  }
+
+  return response;
 }
