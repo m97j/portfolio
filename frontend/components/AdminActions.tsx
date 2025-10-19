@@ -17,7 +17,7 @@ export default function AdminActions({ category, post }: { category: string; pos
 
   async function handleDelete() {
     try {
-      await PostsAPI.delete(category as any, post.id);
+      await PostsAPI.delete(category as any, post.slug);
       alert("삭제 완료");
       router.replace(`/${category}`);
     } catch (err: any) {
@@ -31,7 +31,7 @@ export default function AdminActions({ category, post }: { category: string; pos
   }
 
   function handleEdit() {
-    router.push(`/admin/edit/${category}/${post.id}`);
+    router.push(`/admin/edit/${category}/${post.slug}`);
   }
 
   return (

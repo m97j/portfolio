@@ -1,4 +1,4 @@
-// frontend/app/admin/edit/[category]/[id]/page.tsx
+// frontend/app/admin/edit/[category]/[slug]/page.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import { PostsAPI } from "@/lib/api";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
-export default function AdminEditPage({ params }: { params: { category: string; id: string } }) {
+export default function AdminEditPage({ params }: { params: { category: string; slug: string } }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
@@ -20,7 +20,7 @@ export default function AdminEditPage({ params }: { params: { category: string; 
   useEffect(() => {
     async function loadData() {
       try {
-        const post = await PostsAPI.bySlug(params.category as any, params.id);
+        const post = await PostsAPI.bySlug(params.category as any, params.slug);
         setTitle(post.title);
         setSlug(post.slug);
         setSubtitle(post.subtitle || "");
@@ -42,7 +42,7 @@ export default function AdminEditPage({ params }: { params: { category: string; 
       const emojiList = emojis.split(/[,\s]+/).filter(Boolean);
       const body = { slug, title, subtitle, contentMd, coverUrl, emojis: emojiList };
 
-      const updated = await PostsAPI.update(params.category as any, params.id, body);
+      const updated = await PostsAPI.update(params.category as any, params.slug, body);
       alert("수정 완료");
       router.push(`/${params.category}/${updated.slug}`);
     } catch (err: any) {

@@ -9,7 +9,7 @@ const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [category, setCategory] = useState<"notes" | "vlogs" | "projects">("notes");
+  const [category, setCategory] = useState<"notes" | "blogs" | "projects">("notes");
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
             className="border p-2 rounded"
           >
             <option value="notes">Notes</option>
-            <option value="vlogs">Vlogs</option>
+            <option value="blogs">Blogs</option>
             <option value="projects">Projects</option>
           </select>
         </label>

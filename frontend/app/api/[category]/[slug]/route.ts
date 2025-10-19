@@ -50,6 +50,11 @@ export async function DELETE(req: Request, { params }: { params: { category: str
       Authorization: req.headers.get("authorization") || "",
     },
   });
+
+  if (res.status === 204) {
+    return NextResponse.json({}, { status: 204 });
+  }
+
   const data = await res.json();
   return NextResponse.json(data, { status: res.status });
 }
