@@ -28,7 +28,7 @@ export async function fetchAuthJSON<T>(path: string, init: RequestInit = {}): Pr
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
-  let res = await fetch(buildUrl(path), { cache: "no-cache", ...init, headers });
+  let res = await fetch(buildUrl(path), { cache: "no-cache", credentials: "include", ...init, headers });
 
   // Access Token 만료 → refresh 시도
   if (res.status === 401 && typeof window !== "undefined") {
@@ -47,7 +47,7 @@ export async function fetchAuthJSON<T>(path: string, init: RequestInit = {}): Pr
           ...(init.headers || {}),
           Authorization: `Bearer ${newToken}`,
         };
-        res = await fetch(buildUrl(path), { cache: "no-cache", ...init, headers: retryHeaders });
+        res = await fetch(buildUrl(path), { cache: "no-cache", credentials: "include", ...init, headers: retryHeaders });
       } else {
         // Refresh Token도 만료 → 로그인 페이지로 이동
         localStorage.removeItem("adminToken");
