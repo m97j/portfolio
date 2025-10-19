@@ -2,7 +2,7 @@ name: Deploy Frontend & Backend to Azure
 
 on:
   workflow_run:
-    workflows: ["Provision Azure Infrastructure"]   # infra.yml의 name과 동일
+    workflows: ["Provision Azure Infrastructure"]
     types:
       - completed
   push:
@@ -58,7 +58,10 @@ jobs:
           context: ./frontend
           push: true
           tags: portfolioacrn3r0m8x.azurecr.io/frontend:latest
-          no-cache: true  
+          no-cache: true
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+            API_URL=${{ secrets.API_URL }}
 
       - name: Update Frontend App
         run: |
@@ -96,7 +99,10 @@ jobs:
           context: ./backend
           push: true
           tags: portfolioacrn3r0m8x.azurecr.io/backend:latest
-          no-cache: true   
+          no-cache: true
+          build-args: |
+            API_URL=${{ secrets.API_URL }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
 
       - name: Update Backend App
         run: |
