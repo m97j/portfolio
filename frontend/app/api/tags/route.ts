@@ -13,12 +13,21 @@ function ensureApiUrl() {
 
 export async function GET() {
   const base = ensureApiUrl();
-  if (!base) return NextResponse.json({ error: "API_URL not configured" }, { status: 500 });
+  if (!base) {
+    return NextResponse.json({ error: "API_URL not configured" }, { status: 500 });
+  }
 
-  const res = await fetch(`${base}/api/tags`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
-  const data = await res.json();
-  return NextResponse.json(data, { status: res.status });
+  try {
+    const res = await fetch(`${base}/api/tags`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    const data = await res.json();
+    return NextResponse.json(data, { status: res.status });
+  } catch (err: any) {
+    console.error("Failed to fetch tags:", err);
+    return NextResponse.json({ error: err.message || "Failed to fetch tags" }, { status: 500 });
+  }
 }
