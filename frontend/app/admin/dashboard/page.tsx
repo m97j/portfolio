@@ -17,7 +17,7 @@ export default function AdminDashboard() {
   const [emojis, setEmojis] = useState<string>("🟠 ⚫");
   const [coverUrl, setCoverUrl] = useState("");
 
-  // 로그인 체크 (토큰 없거나 만료 시 로그인 페이지로 이동)
+  // 로그인 체크
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
     if (!token) {
@@ -25,13 +25,10 @@ export default function AdminDashboard() {
       return;
     }
 
-    // 선택적으로 토큰 검증 API 호출 가능
-    fetchAuthJSON("/api/auth/verify")
-      .catch(() => {
-        alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
-        localStorage.removeItem("adminToken");
-        router.push("/admin/login");
-      });
+    // verify 호출만 하고, 실패 시 처리는 fetchAuthJSON 내부에서 담당
+    fetchAuthJSON("/api/auth/verify").catch((err) => {
+      console.error("Verify failed:", err);
+    });
   }, [router]);
 
   async function handleCreate() {
@@ -62,13 +59,8 @@ export default function AdminDashboard() {
       });
       alert(`Created: ${json.slug}`);
     } catch (err: any) {
-      if (err.message.includes("Unauthorized")) {
-        alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
-        localStorage.removeItem("adminToken");
-        router.push("/admin/login");
-      } else {
-        alert(err.message || "생성 실패");
-      }
+      // Unauthorized 처리도 fetchAuthJSON 내부에서 담당하므로 여기서는 일반 에러만 처리
+      alert(err.message || "생성 실패");
     }
   }
 
