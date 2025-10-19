@@ -1,6 +1,7 @@
 import { PostsAPI } from "@/lib/api";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import TagList from "@/components/TagList";
+import AdminActions from "@/components/AdminActions";
 
 // frontend/app/projects/[slug]/page.tsx
 export default async function ProjectDetail({ params }: { params: { slug: string } }) {
@@ -34,6 +35,7 @@ export default async function ProjectDetail({ params }: { params: { slug: string
           View code on GitHub
         </a>
       )}
+      <AdminActions category="notes" post={post} />
     </main>
   );
 }

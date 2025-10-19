@@ -1,11 +1,10 @@
 // frontend/lib/api.ts
 function getBaseUrl() {
   if (typeof window !== "undefined") {
-    // 클라이언트: 브라우저가 알아서 현재 origin을 붙여줌
-    return "";
+    return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
   }
   // 서버: 절대 URL 필요
-  return process.env.API_URL ?? "http://localhost:3000";
+  return process.env.API_URL ?? "http://localhost:4000";
 }
 
 function buildUrl(path: string) {

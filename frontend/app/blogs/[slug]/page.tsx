@@ -2,6 +2,7 @@
 import { PostsAPI } from "@/lib/api";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import TagList from "@/components/TagList";
+import AdminActions from "@/components/AdminActions";
 
 export default async function VlogDetail({ params }: { params: { slug: string } }) {
   let post: any = null;
@@ -28,6 +29,7 @@ export default async function VlogDetail({ params }: { params: { slug: string } 
       <p className="text-gray-500">{post.subtitle}</p>
       <TagList tagString={tagString} />
       <MarkdownRenderer content={post.contentMd} />
+      <AdminActions category="blogs" post={post} />
     </div>
   );
 }
