@@ -1,7 +1,7 @@
 // backend/src/posts/controller.ts
 import { Request, Response } from 'express';
 import { Category } from '@prisma/client';
-import { listPosts, getPostBySlug, createPost, updatePost, deletePost } from './service';
+import { listPosts, getPostBySlug, createPost, updatePostBySlug, deletePostBySlug } from './service';
 
 export async function list(req: Request, res: Response) {
   const { category, keyword, limit, offset, emojis } = req.query as any;
@@ -34,29 +34,40 @@ export async function create(req: Request, res: Response) {
     visibility: body.visibility,
     language: body.language,
     description: body.description,
-    emojis: body.emojis || [], // e.g., ["🟠","⚫"]
+    emojis: body.emojis || [],
   });
   res.status(201).json(created);
 }
 
 export async function update(req: Request, res: Response) {
   const body = req.body;
-  const updated = await updatePost(req.params.id, {
-    slug: body.slug,
-    title: body.title,
-    subtitle: body.subtitle,
-    category: body.category,
-    contentMd: body.contentMd,
-    coverUrl: body.coverUrl,
-    visibility: body.visibility,
-    language: body.language,
-    description: body.description,
-    emojis: body.emojis || [],
-  });
-  res.json(updated);
+  try {
+    const updated = await updatePostBySlug(req.params.slug, {
+      slug: body.slug,
+      title: body.title,
+      subtitle: body.subtitle,
+      category: body.category,
+      contentMd: body.contentMd,
+      coverUrl: body.coverUrl,
+      visibility: body.visibility,
+      language: body.language,
+      description: body.description,
+      emojis: body.emojis || [],
+    });
+    res.json(updated);
+  } catch (e: any) {
+    if (e.code === 'P2002') {
+      return res.status(409).json({ error: 'Slug already exists' });
+    }
+    return res.status(500).json({ error: 'Update failed' });
+  }
 }
 
 export async function remove(req: Request, res: Response) {
-  await deletePost(req.params.id);
-  res.status(204).send();
+  try {
+    await deletePostBySlug(req.params.slug);
+    res.status(204).send();
+  } catch (e: any) {
+    return res.status(404).json({ error: 'Not found' });
+  }
 }

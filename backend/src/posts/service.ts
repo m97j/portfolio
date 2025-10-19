@@ -5,7 +5,7 @@ import { Category, Prisma } from '@prisma/client';
 export async function listPosts(params: {
   category?: Category;
   keyword?: string;
-  emojiTags?: string[]; // filter by emoji
+  emojiTags?: string[];
   limit?: number;
   offset?: number;
 }) {
@@ -86,7 +86,7 @@ export async function createPost(data: {
   return await getPostBySlug(post.slug);
 }
 
-export async function updatePost(id: string, data: {
+export async function updatePostBySlug(slug: string, data: {
   slug?: string;
   title?: string;
   subtitle?: string;
@@ -99,7 +99,7 @@ export async function updatePost(id: string, data: {
   emojis?: string[];
 }) {
   const post = await prisma.post.update({
-    where: { id },
+    where: { slug },
     data: {
       slug: data.slug,
       title: data.title,
@@ -116,6 +116,6 @@ export async function updatePost(id: string, data: {
   return await getPostBySlug(post.slug);
 }
 
-export async function deletePost(id: string) {
-  await prisma.post.delete({ where: { id } });
+export async function deletePostBySlug(slug: string) {
+  await prisma.post.delete({ where: { slug } });
 }
