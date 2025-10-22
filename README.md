@@ -1,4 +1,4 @@
-# 🧠 Tech Portfolio
+# 🧠 [Tech Portfolio](https://minjae-portfolio.vercel.app)
 **Game Development × AI Research**  
 몰입감 있는 게임 환경과 지능적인 AI 시스템을 만들기 위한 프로젝트 모음집입니다.  
 (세부 구현 및 설명은 각 프로젝트 repo에 포함되어 있습니다)
