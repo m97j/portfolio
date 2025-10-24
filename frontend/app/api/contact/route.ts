@@ -1,4 +1,6 @@
-// // frontend/app/api/contact/route.ts  [🔒 현재는 사용 안 함]
+// app/api/contact/route.ts
+
+// 🔒 기존 Contact API (현재는 사용하지 않음)
 // import { NextResponse } from "next/server";
 
 // export async function POST(req: Request) {
@@ -54,3 +56,11 @@
 //     return NextResponse.json({ error: "서버 오류" }, { status: 500 });
 //   }
 // }
+
+// 현재는 Contact API 비활성화 상태 → dummy handler
+export async function POST() {
+  return new Response(JSON.stringify({ error: "Contact API disabled" }), {
+    status: 503,
+    headers: { "Content-Type": "application/json" },
+  });
+}
