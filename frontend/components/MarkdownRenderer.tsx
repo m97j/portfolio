@@ -15,6 +15,7 @@ import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import rehypeRaw from "rehype-raw";
 
 // styles
 import "katex/dist/katex.min.css";
@@ -32,7 +33,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           remarkToc,
           remarkYoutube
         ]}
-        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
+        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeRaw]}
       >
         {content}
       </ReactMarkdown>
