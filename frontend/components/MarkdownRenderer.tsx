@@ -8,8 +8,7 @@ import remarkMath from "remark-math";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkToc from "remark-toc";
-import remarkEmbedder from "@remark-embedder/core"
-import oembedTransformer from "@remark-embedder/transformer-oembed"
+import remarkYoutube from "@/lib/remark-youtube"
 
 // rehype plugins
 import rehypeKatex from "rehype-katex";
@@ -31,7 +30,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           remarkFrontmatter,
           remarkMdxFrontmatter,
           remarkToc,
-          [remarkEmbedder, { transformers: [oembedTransformer] }]
+          remarkYoutube
         ]}
         rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
       >
