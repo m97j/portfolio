@@ -9,7 +9,8 @@ import remarkMath from "remark-math";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkToc from "remark-toc";
-import remarkOembed from "@remark-embedder/core"
+import remarkEmbedder from "@remark-embedder/core"
+import oembedTransformer from "@remark-embedder/transformer-oembed"
 
 // rehype plugins
 import rehypeKatex from "rehype-katex";
@@ -25,7 +26,14 @@ export default function MarkdownRenderer({ content }: { content: string }) {
   return (
     <article className="prose dark:prose-invert max-w-none">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkMath, remarkFrontmatter, remarkMdxFrontmatter, remarkToc, remarkOembed]}
+        remarkPlugins={[
+          remarkGfm,
+          remarkMath,
+          remarkFrontmatter,
+          remarkMdxFrontmatter,
+          remarkToc,
+          [remarkEmbedder, { transformers: [oembedTransformer] }]
+        ]}
         rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
       >
         {content}
