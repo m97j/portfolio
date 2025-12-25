@@ -5,18 +5,14 @@ export default function remarkYouTube() {
     return (tree: any) => {
         visit(tree, "link", (node: any) => {
             const url: string = node.url;
-            let videoId: string | null = null;
+            let videoId: string | undefined;
 
             // Detect YouTube URL 
             if (url.includes("youtube.com")) {
-                try {
-                    const params = new URL(url).searchParams;
-                    videoId = params.get("v");
-                } catch {
-                    videoId = null;
-                }
+                const params = new URL(url).searchParams;
+                videoId = params.get("v") || undefined;
             } else if (url.includes("youtu.be")) {
-                videoId = url.split("/").pop() || null;
+                videoId = url.split("/").pop();
             }
 
             if (videoId) {
