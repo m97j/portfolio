@@ -1,9 +1,6 @@
 /* frontend/styles/globals.css */
-
-/* Tailwind 기본 선언 */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
 
 /* react-md-editor CSS */
 @import "@uiw/react-md-editor/markdown-editor.css";
