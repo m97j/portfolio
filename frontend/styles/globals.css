@@ -1,20 +1,17 @@
 /* frontend/styles/globals.css */
-
-/* Tailwind 기본 선언 */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* DaisyUI */
+@import "tailwindcss";
 @plugin "daisyui";
 
 /* react-md-editor CSS */
 @import "@uiw/react-md-editor/markdown-editor.css";
 @import "@uiw/react-markdown-preview/markdown.css";
 
-/* Markdown 스타일 (Typography 플러그인 기반) */
+/* Markdown 스타일 */
 .prose {
   max-width: 100ch;
-  /* 기본 prose 폭 조정 */
   margin: auto;
+  font-size: 1rem;
+  line-height: 1.75;
 }
+
+/* 필요 시 커스텀 스타일 추가 */
