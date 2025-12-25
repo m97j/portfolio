@@ -16,7 +16,9 @@ import rehypeKatex from "rehype-katex"
 import rehypeHighlight from "rehype-highlight"
 import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
-import rehypeMermaid from "rehype-mermaid"
+
+// custom mermaid renderer 
+import MermaidRenderer from "./MermaidRenderer";
 
 // styles
 import "katex/dist/katex.min.css"
@@ -34,7 +36,20 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           remarkToc,
           remarkYoutube
         ]}
-        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeMermaid]}
+        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
+        components={{
+          code({ node, className, children, ...props }) {
+            const match = /language-(\w+)/.exec(className || "");
+            if (match?.[1] === "mermaid") {
+              return <MermaidRenderer code={String(children)} />;
+            }
+            return (
+              <code className={className} {...props}>
+                {children}
+              </code>
+            );
+          },
+        }}
       >
         {content}
       </ReactMarkdown>
