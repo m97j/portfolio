@@ -10,8 +10,6 @@
 .prose {
   max-width: 100ch;
   margin: auto;
-  font-size: 1rem;
-  line-height: 1.75;
 }
 
 /* 필요 시 커스텀 스타일 추가 */
