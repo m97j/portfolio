@@ -8,10 +8,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: { extend: {} },
-  plugins: [
-    require("daisyui"),
-    require("@tailwindcss/typography"),
-  ],
+  plugins: [],
   daisyui: {
     base: false,
     styled: true,
