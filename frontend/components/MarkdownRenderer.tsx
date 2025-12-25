@@ -8,7 +8,6 @@ import remarkMath from "remark-math"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkMdxFrontmatter from "remark-mdx-frontmatter"
 import remarkToc from "remark-toc"
-import remarkMermaid from "remark-mermaidjs"
 import remarkYoutube from "@/lib/remark-youtube"
 
 // rehype plugins
@@ -16,6 +15,7 @@ import rehypeKatex from "rehype-katex"
 import rehypeHighlight from "rehype-highlight"
 import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import rehypeMermaid from "rehype-mermaid"
 
 // styles
 import "katex/dist/katex.min.css"
@@ -31,10 +31,9 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           remarkFrontmatter,
           remarkMdxFrontmatter,
           remarkToc,
-          remarkMermaid,
           remarkYoutube
         ]}
-        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
+        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeMermaid]}
       >
         {content}
       </ReactMarkdown>

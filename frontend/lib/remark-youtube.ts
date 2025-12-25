@@ -19,12 +19,12 @@ export default function remarkYouTube() {
                 node.type = "mdxJsxFlowElement";
                 node.name = "iframe";
                 node.attributes = [
-                    { type: "mdxJsxFlowElement", name: "width", value: "560" },
-                    { type: "mdxJsxFlowElement", name: "height", value: "315" },
-                    { type: "mdxJsxFlowElement", name: "src", value: `https://www.youtube.com/embed/${videoId}` },
-                    { type: "mdxJsxFlowElement", name: "frameBorder", value: "0" },
-                    { type: "mdxJsxFlowElement", name: "allow", value: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" },
-                    { type: "mdxJsxFlowElement", name: "allowFullScreen", value: true },
+                    { type: "mdxJsxAttribute", name: "width", value: "560" },
+                    { type: "mdxJsxAttribute", name: "height", value: "315" },
+                    { type: "mdxJsxAttribute", name: "src", value: `https://www.youtube.com/embed/${videoId}` },
+                    { type: "mdxJsxAttribute", name: "frameBorder", value: "0" },
+                    { type: "mdxJsxAttribute", name: "allow", value: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" },
+                    { type: "mdxJsxAttribute", name: "allowFullScreen", value: true },
                 ];
             }
         });
