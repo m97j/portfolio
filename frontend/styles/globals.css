@@ -18,8 +18,3 @@
   /* 기본 prose 폭 조정 */
   margin: auto;
 }
-
-/* 다크 모드 대응 */
-.dark .prose {
-  @apply prose-invert;
-}
