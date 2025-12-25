@@ -1,6 +1,9 @@
 /* frontend/styles/globals.css */
-@import "tailwindcss";
-@plugin "daisyui";
+
+/* Tailwind 기본 선언 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* react-md-editor CSS */
 @import "@uiw/react-md-editor/markdown-editor.css";
@@ -11,5 +14,3 @@
   max-width: 100ch;
   margin: auto;
 }
-
-/* 필요 시 커스텀 스타일 추가 */
