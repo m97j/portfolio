@@ -6,6 +6,7 @@ export default function remarkYouTube() {
         visit(tree, "link", (node: any) => {
             const url: string = node.url;
             let videoId: string | null = null;
+
             // Detect YouTube URL 
             if (url.includes("youtube.com")) {
                 try {
@@ -19,21 +20,19 @@ export default function remarkYouTube() {
             }
 
             if (videoId) {
-                // AST -> React node
-                node.type = "mdxJsxFlowElement";
-                node.name = "iframe";
-                node.attributes = [
-                    { type: "mdxJsxAttribute", name: "width", value: "560" },
-                    { type: "mdxJsxAttribute", name: "height", value: "315" },
-                    { type: "mdxJsxAttribute", name: "src", value: `https://www.youtube.com/embed/${videoId}` },
-                    { type: "mdxJsxAttribute", name: "frameBorder", value: "0" },
-                    {
-                        type: "mdxJsxAttribute",
-                        name: "allow",
-                        value: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-                    },
-                    { type: "mdxJsxAttribute", name: "allowFullScreen", value: true },
-                ];
+                // AST -> standard HTML element
+                node.type = "element";
+                node.tagname = "iframe";
+                node.properties = {
+                    width: "560",
+                    height: "315",
+                    src: `https://www.youtube.com/embed/${videoId}`,
+                    frameBorder: "0",
+                    allow:
+                        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                    allowFullScreen: true,
+                };
+                node.children = [];
             }
         });
     };

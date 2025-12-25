@@ -49,6 +49,9 @@ export default function MarkdownRenderer({ content }: { content: string }) {
               </code>
             );
           },
+          iframe({ node, ...props }) {
+            return <iframe {...props} />;
+          },
         }}
       >
         {content}
