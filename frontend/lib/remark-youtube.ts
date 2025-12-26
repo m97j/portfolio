@@ -18,17 +18,16 @@ export default function remarkYouTube() {
             if (videoId) {
                 // AST -> standard HTML element
                 node.type = "element";
-                node.tagname = "iframe";
+                node.tagName = "iframe";
                 node.properties = {
                     width: "560",
                     height: "315",
                     src: `https://www.youtube.com/embed/${videoId}`,
-                    frameBorder: "0",
                     allow:
                         "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
                     allowFullScreen: true,
+                    style: "border:none;",
                 };
-                node.children = [];
             }
         });
     };

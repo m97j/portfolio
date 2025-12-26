@@ -49,8 +49,17 @@ export default function MarkdownRenderer({ content }: { content: string }) {
               </code>
             );
           },
-          iframe({ node, ...props }) {
-            return <iframe {...props} />;
+          iframe({ node, src, width, height, allow, allowFullScreen }) {
+            return (
+              <iframe
+                src={src}
+                width={width}
+                height={height}
+                style={{ border: "none" }}
+                allow={allow}
+                allowFullScreen={allowFullScreen}
+              />
+            );
           },
         }}
       >
