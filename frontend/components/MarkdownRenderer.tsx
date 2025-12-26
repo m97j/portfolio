@@ -9,7 +9,7 @@ import remarkMath from "remark-math"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkMdxFrontmatter from "remark-mdx-frontmatter"
 import remarkToc from "remark-toc"
-import remarkYoutube from "@/lib/remark-youtube"
+import rehypeYoutube from "@/lib/rehype-youtube"
 
 // rehype plugins
 import rehypeKatex from "rehype-katex"
@@ -33,10 +33,9 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           remarkMath,
           remarkFrontmatter,
           remarkMdxFrontmatter,
-          remarkToc,
-          remarkYoutube
+          remarkToc
         ]}
-        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
+        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeYoutube]}
         components={{
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
