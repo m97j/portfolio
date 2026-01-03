@@ -18,7 +18,7 @@ export default function Home() {
       coverUrl: "/images/fpsgame.png",
       summary:
         "Unity 기반 1인칭 슈팅 프로젝트 — FSM → Behavior Tree → ML-Agents PPO로 확장된 적 AI 설계 및 강화학습 적용. 🤝 NPC 대화는 Persona Chat Engine과 연동",
-      tags: ["Unity", "C#", "ML-Agents", "MongoDB"],
+      tags: ["Unity", "ML-Agents", "MongoDB", "Node.js"],
       language: "cs",
     },
     {
@@ -36,7 +36,7 @@ export default function Home() {
       coverUrl: "/images/pragmatic-llm-search.png",
       summary:
         "오픈소스 LLM 기반 검색+요약 챗봇 — RAG 구조, QLoRA/DPO 튜닝, Hugging Face Space SaaS 프로토타입",
-      tags: ["Next.js", "LLM", "Vector DB"],
+      tags: ["Gradio", "LLM", "Vector DB", "HuggingFace", "Search API"],
       language: "ts",
     },
     {
@@ -45,10 +45,13 @@ export default function Home() {
       coverUrl: "/images/har-safety-ai.png",
       summary:
         "멀티모달 포즈-이미지 융합 기반 행동 인식 모델 — OpenPose + RGB 이미지, Factorized Attention 기반 실시간 위험 행동 인식",
-      tags: ["Python", "TensorFlow", "AI Safety"],
+      tags: ["Python", "PyTorch", "Colab"],
       language: "py",
     },
   ];
+
+  const slidesCount = projects.length;
+  const enableLoop = slidesCount >= 3;
 
   return (
     <section className="space-y-32 bg-base-200 text-base-content">
@@ -61,18 +64,18 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-5xl font-extrabold"
           >
-            🧠 Tech Portfolio
+            Portfolio
           </motion.h2>
           <p className="text-lg max-w-2xl mx-auto opacity-80">
-            <strong>Game Development × AI Research</strong> <br />
-            개발자로서의 여정을 기록하고, 프로젝트와 학습 내용을 공유합니다.
+            <strong>Projects · Research & Development · Study Notes</strong> <br />
+            프로젝트, 연구·개발, 학습의 과정과 결과를 정리한 아카이브
           </p>
           <div className="flex justify-center gap-4 mt-6 flex-wrap">
             <Link href="/projects" className="btn btn-primary">
               🌱 View Projects
             </Link>
-            <Link href="/blogs" className="btn btn-outline btn-primary">
-              📘 Dev Blog
+            <Link href="/info" className="btn btn-outline btn-primary">
+              📘 About Me
             </Link>
             <Link href="/contact" className="btn btn-secondary">
               ✉️ Contact Me
@@ -90,12 +93,21 @@ export default function Home() {
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
-            slidesPerView={1.2} // 중앙 1개 + 옆에 살짝 보이게
+            slidesPerView={1.2}
             centeredSlides={true}
-            loop
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
+
+            loop={enableLoop}
+            loopAdditionalSlides={slidesCount}
+
+            autoplay={
+              enableLoop
+                ? { delay: 4000, disableOnInteraction: false }
+                : false
+            }
+
             pagination={{ clickable: true }}
             navigation
+
             breakpoints={{
               768: { slidesPerView: 1.5 },
               1024: { slidesPerView: 2.2 },
@@ -128,7 +140,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="card bg-base-100 shadow-xl p-6"
           >
-            <h2 className="text-2xl font-semibold mb-4">📘 Study Notes</h2>
+            <h2 className="text-2xl font-semibold mb-4">📝 Study Notes</h2>
             <ul className="list-disc list-inside space-y-2">
               <li>
                 <Link href="/notes/transformer-basics" className="link link-primary">
@@ -156,7 +168,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="card bg-base-100 shadow-xl p-6"
           >
-            <h2 className="text-2xl font-semibold mb-4">📝 Dev Blogs</h2>
+            <h2 className="text-2xl font-semibold mb-4">📘 Dev Blogs</h2>
             <ul className="list-disc list-inside space-y-2">
               <li>
                 <Link href="/blogs/fpsgame-overview" className="link link-primary">
