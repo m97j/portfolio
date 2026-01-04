@@ -47,55 +47,63 @@ export default function InfoPage() {
 
     return (
         <section className="max-w-5xl mx-auto py-20 px-4">
-            <header className="text-center space-y-6">
-                <h1 className="text-4xl font-bold">
-                    Interactive Systems <br className="md:hidden" />
-                    & AI-driven Software
-                </h1>
+            <div className="space-y-24">
+                {/* Header */}
+                <header className="text-center space-y-6">
+                    <h1 className="text-4xl font-bold">
+                        Interactive Systems <br className="md:hidden" />
+                        & AI-driven Software
+                    </h1>
 
-                <p className="max-w-3xl mx-auto text-base opacity-80 leading-relaxed">
-                    관심 분야는 <strong>AI · 시스템 · 인터랙티브 소프트웨어</strong>이며,
-                    실제로 동작하는 구조를 설계하고 구현하는 프로젝트에 집중합니다.
-                </p>
+                    <p className="max-w-3xl mx-auto text-base opacity-80 leading-relaxed">
+                        관심 분야는 <strong>AI · 시스템 · 인터랙티브 소프트웨어</strong>이며,
+                        실제로 동작하는 구조를 설계하고 구현하는 프로젝트에 집중합니다.
+                    </p>
 
-                <div className="flex flex-wrap justify-center gap-3 text-sm opacity-70">
-                    <span className="badge badge-outline">AI Integration</span>
-                    <span className="badge badge-outline">Backend</span>
-                    <span className="badge badge-outline">Simulation</span>
-                    <span className="badge badge-outline">Game Systems</span>
-                </div>
-            </header>
-
-            <section>
-                <h2 className="text-2xl font-semibold mb-8 text-center">
-                    How I Approach Problems
-                </h2>
-
-                <ul className="max-w-3xl mx-auto space-y-3 text-sm opacity-85">
-                    <li>• 구현 전에 구조, 데이터 흐름, 병목 지점을 먼저 정의</li>
-                    <li>• 설명 가능한 설계와 트레이드오프를 중요하게 고려</li>
-                    <li>• 작은 단위로 검증하며 점진적으로 시스템 확장</li>
-                    <li>• 실험적인 아이디어도 실행 가능한 형태로 구현</li>
-                </ul>
-            </section>
-
-            <h1 className="text-3xl font-bold mb-10 text-center">Interests</h1>
-            <p className="text-center mb-12 opacity-80">개발·연구·학습 분야들</p>
-            <div className="grid md:grid-cols-2 gap-8">
-                {interests.map((item, i) => (
-                    <div key={i} className="card bg-base-100 shadow-xl p-6 hover:shadow-2xl transition">
-                        <div className="flex items-center gap-4 mb-3">
-                            <Icon icon={item.icon} className="w-8 h-8 text-gray-800 dark:text-gray-100" />
-                            <h2 className="text-xl font-semibold">{item.title}</h2>
-                        </div>
-                        <p className="opacity-80 text-sm">{item.desc}</p>
+                    <div className="flex flex-wrap justify-center gap-3 text-sm opacity-70">
+                        <span className="badge badge-outline">AI Integration</span>
+                        <span className="badge badge-outline">Backend</span>
+                        <span className="badge badge-outline">Simulation</span>
+                        <span className="badge badge-outline">Game Systems</span>
                     </div>
-                ))}
-            </div>
+                </header>
 
-            <div className="mt-12 text-center space-y-2">
-                <p>📧 Email: <a href="mailto:mmnkjiae@gmail.com" className="link link-primary">mmnkjiae@gmail.com</a></p>
-                <p>💻 GitHub: <a href="https://github.com/m97j" target="_blank" className="link link-primary">github.com/m97j</a></p>
+                {/* How I Approach Problems */}
+                <section className="space-y-8">
+                    <h2 className="text-2xl font-semibold mb-8 text-center">
+                        How I Approach Problems
+                    </h2>
+
+                    <ul className="max-w-3xl mx-auto space-y-3 text-sm opacity-85 text-center">
+                        <li>• 구현 전에 구조, 데이터 흐름, 병목 지점을 먼저 정의</li>
+                        <li>• 설명 가능한 설계와 트레이드오프를 중요하게 고려</li>
+                        <li>• 작은 단위로 검증하며 점진적으로 시스템 확장</li>
+                        <li>• 실험적인 아이디어도 실행 가능한 형태로 구현</li>
+                    </ul>
+                </section>
+
+                {/* Interests */}
+                <section className="space-y-6">
+                    <h1 className="text-3xl font-bold mb-10 text-center">Interests</h1>
+                    <p className="text-center mb-12 opacity-80">개발·연구·학습 분야들</p>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {interests.map((item, i) => (
+                            <div key={i} className="card bg-base-100 shadow-xl p-6 hover:shadow-2xl transition">
+                                <div className="flex items-center gap-4 mb-3">
+                                    <Icon icon={item.icon} className="w-8 h-8 text-gray-800 dark:text-gray-100" />
+                                    <h2 className="text-xl font-semibold">{item.title}</h2>
+                                </div>
+                                <p className="opacity-80 text-sm">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Contact */}
+                <div className="mt-12 text-center space-y-2">
+                    <p>📧 Email: <a href="mailto:mmnkjiae@gmail.com" className="link link-primary">mmnkjiae@gmail.com</a></p>
+                    <p>💻 GitHub: <a href="https://github.com/m97j" target="_blank" className="link link-primary">github.com/m97j</a></p>
+                </div>
             </div>
         </section>
     );
