@@ -51,7 +51,7 @@ export default function Home() {
   ];
 
   const slidesCount = projects.length;
-  const enableLoop = slidesCount >= 3;
+  const enableLoop = slidesCount >= 4;
 
   return (
     <section className="space-y-32 bg-base-200 text-base-content">
@@ -94,23 +94,18 @@ export default function Home() {
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
             slidesPerView={1.2}
-            centeredSlides={true}
-
+            centeredSlides
             loop={enableLoop}
-            loopAdditionalSlides={slidesCount}
-
             autoplay={
               enableLoop
                 ? { delay: 4000, disableOnInteraction: false }
                 : false
             }
-
             pagination={{ clickable: true }}
             navigation
-
             breakpoints={{
-              768: { slidesPerView: 1.5 },
-              1024: { slidesPerView: 2.2 },
+              768: { slidesPerView: 1.4 },
+              1024: { slidesPerView: 1.8 },
             }}
           >
             {projects.map((project, i) => (
