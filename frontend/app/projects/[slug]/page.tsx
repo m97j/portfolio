@@ -35,7 +35,7 @@ export default async function ProjectDetail({ params }: { params: { slug: string
           View code on GitHub
         </a>
       )}
-      <AdminActions category="notes" post={post} />
+      <AdminActions category="projects" post={post} />
     </main>
   );
 }
