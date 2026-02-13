@@ -42,11 +42,25 @@ In case the portfolio site is unavailable, you can view the full portfolio docum
 ---
 
 ## 🧰 Tech Stack
-- **Languages**: C++, C#, Python, JavaScript, Java...
-- **AI / ML**: TensorFlow, PyTorch, Colab, HuggingFace, scikit-learn...     
-- **Web**: React, Node.js, Next.js, Flask...  
-- **Game Engines**: Unity, Unreal Engine (learning) 
-- **Infra / Cloud**: Git, AWS, Azure, Supabase, MongoDB, MySQL...  
+
+### Frontend
+- **Language**: TypeScript
+- **Framework**: Next.js (React-based)
+- **Deployment**: Vercel
+
+### Backend
+- **Language**: TypeScript (Node.js runtime)
+- **Framework**: Express.js
+- **ORM / DB Tooling**: Prisma
+- **Deployment**: Hugging Face Spaces (Docker-based)
+
+### Database
+- **Service**: Supabase (PostgreSQL)
+
+### Infra / DevOps
+- **Version Control**: Git, GitHub
+- **CI/CD**: GitHub Actions (Workflows)
+- **Cloud (Early Implementation Experience)**: Azure (Bicep IaC, automated deployment)
 
 ---
 
