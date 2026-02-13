@@ -1,4 +1,4 @@
-# 🧠 Tech Portfolio
+# 🧠 Portfolio
 
 👉 Full portfolio site: [minjae-portfolio.vercel.app](https://minjae-portfolio.vercel.app)
 
