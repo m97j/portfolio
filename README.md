@@ -1,15 +1,7 @@
 # 🧠 Tech Portfolio
-**Game Development × AI Research**
 
 👉 Full portfolio site: [minjae-portfolio.vercel.app](https://minjae-portfolio.vercel.app)
 
----
-
-## 🚀 Featured Projects
-- [FPS Game](https://github.com/m97j/fpsgame) — Unity FPS + ML-Agents AI
-- [Persona Chat Engine](https://github.com/m97j/persona-chat-engine) — LLM-based NPC dialogue engine
-- [HAR Safety AI](https://github.com/m97j/har-safety-ai) — Multimodal human action recognition
-- [Pragmatic LLM Search](https://github.com/m97j/pragmatic-llm-search) — LLM-based search and summary chatbot
 ---
 
 ## 📦 Repository Purpose
@@ -50,10 +42,10 @@ In case the portfolio site is unavailable, you can view the full portfolio docum
 ---
 
 ## 🧰 Tech Stack
-- **Languages**: C++, C#, Python, JavaScript, Java...  
-- **Game Engines**: Unity, Unreal Engine (learning)  
-- **AI / ML**: TensorFlow, PyTorch, Colab, HuggingFace, scikit-learn...  
+- **Languages**: C++, C#, Python, JavaScript, Java...
+- **AI / ML**: TensorFlow, PyTorch, Colab, HuggingFace, scikit-learn...     
 - **Web**: React, Node.js, Next.js, Flask...  
+- **Game Engines**: Unity, Unreal Engine (learning) 
 - **Infra / Cloud**: Git, AWS, Azure, Supabase, MongoDB, MySQL...  
 
 ---
