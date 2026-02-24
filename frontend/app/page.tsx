@@ -13,13 +13,22 @@ import "swiper/css/navigation";
 export default function Home() {
   const projects = [
     {
-      slug: "fpsgame",
-      title: "FPS Game",
-      coverUrl: "/images/fpsgame.png",
+      slug: "uni-har",
+      title: "Uni HAR",
+      coverUrl: "/images/har-safety-ai.png",
       summary:
-        "Unity 기반 1인칭 슈팅 프로젝트 — FSM → Behavior Tree → ML-Agents PPO로 확장된 적 AI 설계 및 강화학습 적용. 🤝 NPC 대화는 Persona Chat Engine과 연동",
-      tags: ["Unity", "ML-Agents", "MongoDB", "Node.js"],
-      language: "cs",
+        "멀티모달 포즈-이미지 융합 기반 행동 인식 모델 — OpenPose + RGB 이미지, Factorized Attention 기반 실시간 행동 인식",
+      tags: ["Python", "PyTorch", "Colab"],
+      language: "py",
+    },
+    {
+      slug: "pragmatic-llm-search",
+      title: "Pragmatic LLM Search",
+      coverUrl: "/images/pragmatic-llm-search.png",
+      summary:
+        "오픈소스 LLM 기반 검색+요약 챗봇 — RAG 구조, QLoRA/DPO 튜닝, Hugging Face Space SaaS 프로토타입",
+      tags: ["PyTorch", "Gradio", "LLM", "Vector DB", "HuggingFace", "Search API"],
+      language: "ts",
     },
     {
       slug: "persona-chat-engine",
@@ -31,22 +40,13 @@ export default function Home() {
       language: "py",
     },
     {
-      slug: "pragmatic-llm-search",
-      title: "Pragmatic LLM Search",
-      coverUrl: "/images/pragmatic-llm-search.png",
+      slug: "fpsgame",
+      title: "FPS Game",
+      coverUrl: "/images/fpsgame.png",
       summary:
-        "오픈소스 LLM 기반 검색+요약 챗봇 — RAG 구조, QLoRA/DPO 튜닝, Hugging Face Space SaaS 프로토타입",
-      tags: ["Gradio", "LLM", "Vector DB", "HuggingFace", "Search API"],
-      language: "ts",
-    },
-    {
-      slug: "har-safety-ai",
-      title: "HAR Safety AI",
-      coverUrl: "/images/har-safety-ai.png",
-      summary:
-        "멀티모달 포즈-이미지 융합 기반 행동 인식 모델 — OpenPose + RGB 이미지, Factorized Attention 기반 실시간 위험 행동 인식",
-      tags: ["Python", "PyTorch", "Colab"],
-      language: "py",
+        "Unity 기반 1인칭 슈팅 프로젝트 — FSM → Behavior Tree → ML-Agents PPO로 확장된 적 AI 설계 및 강화학습 적용. 🤝 NPC 대화는 Persona Chat Engine과 연동",
+      tags: ["Unity", "ML-Agents", "MongoDB", "Node.js"],
+      language: "cs",
     },
   ];
 
