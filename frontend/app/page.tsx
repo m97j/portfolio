@@ -54,7 +54,7 @@ export default function Home() {
   const enableLoop = slidesCount >= 4;
 
   return (
-    <section className="space-y-32 bg-base-200 text-base-content">
+    <section className="space-y-32 text-base-content">
       {/* Hero Section */}
       <div className="hero min-h-[70vh] bg-gradient-to-br from-base-100 to-base-200 dark:from-neutral dark:to-neutral">
         <div className="hero-content text-center flex flex-col gap-6">
@@ -64,7 +64,8 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-5xl font-extrabold"
           >
-            Portfolio
+            Building Intelligent <span className="text-primary">&</span> <br className="md:hidden" />
+            Interactive Systems
           </motion.h2>
           <p className="text-lg max-w-2xl mx-auto opacity-80">
             <strong>Projects · Research & Development · Study Notes</strong> <br />
