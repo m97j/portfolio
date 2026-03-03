@@ -1,3 +1,4 @@
+// frontend/app/layout.tsx
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -5,8 +6,8 @@ import ClientLayout from "../components/ClientLayout";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "mjk's portfolio",
-  description: "Next.js 기반 포트폴리오 사이트",
+  title: "Archive",
+  description: "AI Research & System Optimization Archive. focus on Intelligence Systems, and more...",
   icons: {
     icon: "/favicon.png",
   },
