@@ -12,6 +12,7 @@ import remarkToc from "remark-toc"
 import rehypeYoutube from "@/lib/rehype-youtube"
 
 // rehype plugins
+import rehypeRaw from "rehype-raw"
 import rehypeKatex from "rehype-katex"
 import rehypeHighlight from "rehype-highlight"
 import rehypeSlug from "rehype-slug"
@@ -26,7 +27,8 @@ import "highlight.js/styles/github-dark.css"
 
 export default function MarkdownRenderer({ content }: { content: string }) {
   return (
-    <article className="prose dark:prose-invert max-w-none">
+    <article className="prose dark:prose-invert max-w-none
+    prose-img:inline-block prose-img:m-0 prose-table:table-auto">
       <ReactMarkdown
         remarkPlugins={[
           remarkGfm,
@@ -35,7 +37,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           remarkMdxFrontmatter,
           remarkToc
         ]}
-        rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeYoutube]}
+        rehypePlugins={[rehypeRaw, rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeYoutube]}
         components={{
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
