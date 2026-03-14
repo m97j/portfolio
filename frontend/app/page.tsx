@@ -22,29 +22,29 @@ export default function Home() {
       language: "py",
     },
     {
-      slug: "pragmatic-llm-search",
-      title: "Pragmatic LLM Search",
+      slug: "pragmatic-agent",
+      title: "Pragmatic Agent",
       coverUrl: "/images/pragmatic-llm-search.png",
       summary:
-        "오픈소스 LLM 기반 검색+요약 챗봇 — RAG 구조, QLoRA/DPO 튜닝, Hugging Face Space SaaS 프로토타입",
+        "오픈소스 LLM 기반 검색+요약 챗봇 — RAG 구조, Hugging Face Space SaaS 프로토타입",
       tags: ["PyTorch", "Gradio", "LLM", "Vector DB", "HuggingFace", "Search API"],
       language: "ts",
     },
     {
-      slug: "persona-chat-engine",
-      title: "Persona Chat Engine",
+      slug: "cwie",
+      title: "Cognitive World-Interaction Engine",
       coverUrl: "/images/persona-chat-engine.png",
       summary:
-        "게임 내 NPC 상호작용을 위한 AI 대화 엔진 — Transformer 기반 LLM, LoRA 파인튜닝, RAG 기반 컨텍스트 검색. ⚡ FPS Game NPC AI에 통합 적용",
+        "게임 내 NPC및 환경 간 상호작용을 위한 AI 엔진 — Transformer 기반 LLM, LoRA 파인튜닝, RAG 기반 컨텍스트 검색.",
       tags: ["FastAPI", "LLM", "Docker", "HuggingFace"],
       language: "py",
     },
     {
-      slug: "fpsgame",
-      title: "FPS Game",
+      slug: "atc",
+      title: "Adaptive Tactical Combat",
       coverUrl: "/images/fpsgame.png",
       summary:
-        "Unity 기반 1인칭 슈팅 프로젝트 — FSM → Behavior Tree → ML-Agents PPO로 확장된 적 AI 설계 및 강화학습 적용. 🤝 NPC 대화는 Persona Chat Engine과 연동",
+        "Unity 기반 1인칭 슈팅 프로젝트 — FSM → Behavior Tree → ML-Agents PPO로 확장된 적 AI 설계 및 강화학습 적용.",
       tags: ["Unity", "ML-Agents", "MongoDB", "Node.js"],
       language: "cs",
     },
